@@ -6,6 +6,6 @@
     </option>
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="github.com" vcs="" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
 </project>
