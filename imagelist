@@ -37,3 +37,5 @@ browser images/browser.bmp
 mario images/mario.bmp
 seaGrass images/Seaweed1.bmp 255 255 255 0
 background_default images/none.bmp
+luigi images/luigi.bmp
+minion1 images/win7_cursor.bmp
