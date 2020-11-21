@@ -18,6 +18,7 @@ crab images/crabout10.bmp 255 255 255 128
 crab images/crabout11.bmp 255 255 255 128
 crab images/crabout11.bmp 255 255 255 128
 sea images/sea.bmp 255 255 255 0
+grass images/grasstest_1.bmp
 octo images/s1.bmp 255 255 255 0
 octo images/s2.bmp 255 255 255 0
 octo images/s3.bmp 255 255 255 0
