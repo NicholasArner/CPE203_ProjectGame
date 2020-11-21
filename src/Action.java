@@ -4,6 +4,7 @@ Action: ideally what our various entities might do in our virtual world
 
 abstract class Action
 {
+   //hiiii nic : p
    //private ActionKind kind;
    private final ActiveEntity entity;
    private final WorldModel world;
