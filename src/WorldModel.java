@@ -57,6 +57,15 @@ final class WorldModel
    private static final int QUAKE_ACTION_PERIOD = 1100;
    private static final int QUAKE_ANIMATION_PERIOD = 100;
 
+   private static final String MARIO_KEY = "mario";
+   private static final String LUIGI_KEY = "luigi";
+   private static final int MARIO_LUIGI_NUM_PROPERTIES = 4;
+   private static final int MARIO_LUIGI_ID = 1;
+   private static final int MARIO_LUIGI_COL = 2;
+   private static final int MARIO_LUIGI_ROW = 3;
+   private static final int MARIO_LUIGI_ACTION_PERIOD = 1100;
+   private static final int MARIO_LUIGI_ANIMATION_PERIOD = 100;
+
    private final int numRows;
    private final int numCols;
    private final Background[][] background;
@@ -154,6 +163,12 @@ final class WorldModel
                return parseSgrass(properties, imageStore);
                //Entity sgrass = Entity.parse(properties, imageStore);
                //addEntity(sgrass);
+
+            case MARIO_KEY:
+               return parseMario(properties, imageStore);
+
+            case LUIGI_KEY:
+               return parseLuigi(properties, imageStore);
          }
       }
 
@@ -172,6 +187,40 @@ final class WorldModel
       }
 
       return properties.length == BGND_NUM_PROPERTIES;
+   }
+
+   private boolean parseMario(String[] properties, ImageStore imageStore){
+      if (properties.length == MARIO_LUIGI_NUM_PROPERTIES)
+      {
+         Point pt = new Point(Integer.parseInt(properties[MARIO_LUIGI_COL]),
+                 Integer.parseInt(properties[MARIO_LUIGI_ROW]));
+         Entity entity = new Mario(properties[MARIO_LUIGI_ID],
+                 pt,
+                 imageStore.getImageList(MARIO_KEY),
+                 MARIO_LUIGI_ACTION_PERIOD,
+                 MARIO_LUIGI_ANIMATION_PERIOD
+                 );
+         tryAddEntity(entity);
+      }
+
+      return properties.length == MARIO_LUIGI_NUM_PROPERTIES;
+   }
+
+   private boolean parseLuigi(String[] properties, ImageStore imageStore){
+      if (properties.length == MARIO_LUIGI_NUM_PROPERTIES)
+      {
+         Point pt = new Point(Integer.parseInt(properties[MARIO_LUIGI_COL]),
+                 Integer.parseInt(properties[MARIO_LUIGI_ROW]));
+         Entity entity = new Luigi(properties[MARIO_LUIGI_ID],
+                 pt,
+                 imageStore.getImageList(LUIGI_KEY),
+                 MARIO_LUIGI_ACTION_PERIOD,
+                 MARIO_LUIGI_ANIMATION_PERIOD
+         );
+         tryAddEntity(entity);
+      }
+
+      return properties.length == MARIO_LUIGI_NUM_PROPERTIES;
    }
 
    private boolean parseOcto(String [] properties, ImageStore imageStore)
