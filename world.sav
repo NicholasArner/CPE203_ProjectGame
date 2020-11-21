@@ -62,9 +62,9 @@ obstacle obstacle_29_20 29 20
 obstacle obstacle_30_21 30 21
 obstacle obstacle_31_22 31 22
 obstacle obstacle_32_23 32 23
-background luigi 0 0
+background browser 0 0
 background minion1 1 0
-background grass 2 0
+background powerUp 2 0
 background grass 3 0
 background grass 4 0
 background grass 5 0
@@ -790,11 +790,11 @@ background grass 4 18
 background grass 5 18
 background grass 6 18
 background grass 7 18
-background grass 8 18
+background luigi 8 18
 background mario 9 18
 background grass 10 18
 background grass 11 18
-background browser 12 18
+background grass 12 18
 background grass 13 18
 background grass 14 18
 background grass 15 18

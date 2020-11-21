@@ -35,6 +35,7 @@ quake images/quake6.bmp 255 255 255 0
 bubbles images/bubbles.bmp
 browser images/browser.bmp
 mario images/mario.bmp
+powerUp images/powerUp.bmp
 seaGrass images/Seaweed1.bmp 255 255 255 0
 background_default images/none.bmp
 luigi images/luigi.bmp
