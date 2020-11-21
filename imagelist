@@ -34,7 +34,7 @@ quake images/quake5.bmp 255 255 255 0
 quake images/quake6.bmp 255 255 255 0
 bubbles images/bubbles.bmp
 start images/start.bmp
-default images/default.bmp
+endGoal images/default.bmp
 browser images/browser.bmp
 mario images/mario.bmp
 powerUp images/powerUp.bmp

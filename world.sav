@@ -67,7 +67,7 @@ background grass 1 0
 background grass 2 0
 background grass 3 0
 background grass 4 0
-background default 5 0
+background endGoal 5 0
 background grass 6 0
 background grass 7 0
 background grass 8 0
@@ -87,12 +87,12 @@ background grass 21 0
 background grass 22 0
 background grass 23 0
 background grass 24 0
-background default 25 0
+background endGoal 25 0
 background grass 26 0
 background grass 27 0
 background grass 28 0
 background grass 29 0
-background default 30 0
+background grass 30 0
 background grass 31 0
 background grass 32 0
 background grass 33 0
