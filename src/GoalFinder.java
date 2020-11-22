@@ -31,8 +31,7 @@ public abstract class GoalFinder extends MovingEntity{
 
     private List<Point> calculatePath(WorldModel world, Point destPos){
 
-        List<Point> path = strategy.computePath(getPosition(), destPos, p-> !world.isOccupied(p) & world.withinBounds(p), GoalFinder::neighbors, PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
-        return path;
+        return strategy.computePath(getPosition(), destPos, p-> !world.isOccupied(p) & world.withinBounds(p), GoalFinder::neighbors, PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
     }
 
     private static boolean neighbors(Point p1, Point p2)

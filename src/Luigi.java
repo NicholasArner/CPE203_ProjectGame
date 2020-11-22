@@ -8,12 +8,13 @@ public class Luigi extends GoalFinder{
     }
 
     @Override
-    protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-
-    }
-
-    @Override
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-
+        Point goalPoint = new Point(5, 0); // location of the right goal
+        Entity endGoal = new EndGoal("endGoal", goalPoint, imageStore.getImageList("endGoal"));
+        if (!moveTo(world, endGoal, scheduler)){
+            scheduler.scheduleEvent(this,
+                    createActivityAction(world, imageStore),
+                    getActionPeriod());
+        }
     }
 }
