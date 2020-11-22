@@ -13,22 +13,26 @@ public abstract class Minion extends MovingEntity{
 
     @Override
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> nearestMario = world.findNearest(getPosition(), Mario.class);
-        Point target = new Point(17, 15);
-        if (nearestMario.isPresent()){
-            target = nearestMario.get().getPosition();
-        }
-        Entity endGoal = new EndGoal("endGoal", target, imageStore.getImageList("endGoal"));
-        if (!moveTo(world, endGoal, scheduler)){
-            scheduler.scheduleEvent(this,
-                    createActivityAction(world, imageStore),
-                    getActionPeriod());
-        }
-        else{
-            // minion should already be there
-            nearestMario.ifPresent(scheduler::unscheduleAllEvents);
-            world.moveEntity(this, target);
-        }
+//        Optional<Entity> nearestGoalFinder = world.findNearest(getPosition(), GoalFinder.class);
+//        Point target = new Point(17, 15);
+//        if (nearestGoalFinder.isPresent()){
+//            target = nearestGoalFinder.get().getPosition();
+//        }
+//        Entity endGoal = new EndGoal("endGoal", target, imageStore.getImageList("endGoal"));
+//        if (!moveTo(world, endGoal, scheduler)){
+//            scheduler.scheduleEvent(this,
+//                    createActivityAction(world, imageStore),
+//                    getActionPeriod());
+//        }
+//        else{
+//            // minion should already be there
+//            GoalFinder goalFinder;
+//            if (nearestGoalFinder.isPresent()){
+//                goalFinder = (GoalFinder) nearestGoalFinder.get();
+//                goalFinder.hit();
+//            }
+//            world.moveEntity(this, target);
+//        }
     }
 
     public static boolean neighbors(Point p1, Point p2)

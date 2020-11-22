@@ -27,12 +27,23 @@ public class PowerMinion extends Minion{
         }
         Entity endGoal = new EndGoal("endGoal", target, imageStore.getImageList("endGoal"));
         if (!moveTo(world, endGoal, scheduler)){
-            if (tryCount <= 7){
+            if (tryCount <= 20){
             scheduler.scheduleEvent(this,
                     createActivityAction(world, imageStore),
                     getActionPeriod());
             tryCount++;
             }
+        }
+        else{
+            // minion should already be there
+            GoalFinder goalFinder;
+            if (nearestMario.isPresent()){
+                goalFinder = (GoalFinder) nearestMario.get();
+                goalFinder.hit();
+                goalFinder.executeActivity(world, imageStore, scheduler);
+            }
+            world.moveEntity(this, target);
+            world.removeEntity(this);
         }
     }
 }

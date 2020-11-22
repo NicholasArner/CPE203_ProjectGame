@@ -45,7 +45,12 @@ public abstract class GoalFinder extends MovingEntity{
     }
 
     public void hit(){
-        if (lives == 1) world.removeEntity(this);
+        if (lives == 1){
+            world.removeEntity(this);
+            return;
+        }
         else lives -= 1;
+        Point start = new Point(15, 20);
+        world.moveEntity(this, start);
     }
 }
