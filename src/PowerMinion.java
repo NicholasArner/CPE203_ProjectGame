@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class PowerMinion extends Minion{
+    int tryCount;
 
     PathingStrategy strategy = new SingleStepPathingStrategy();
-    protected PowerMinion(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
+    protected PowerMinion(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, int tryCount) {
         super(id, position, images, actionPeriod, animationPeriod);
+        this.tryCount = tryCount;
     }
 
     @Override
@@ -25,9 +27,12 @@ public class PowerMinion extends Minion{
         }
         Entity endGoal = new EndGoal("endGoal", target, imageStore.getImageList("endGoal"));
         if (!moveTo(world, endGoal, scheduler)){
+            if (tryCount <= 7){
             scheduler.scheduleEvent(this,
                     createActivityAction(world, imageStore),
                     getActionPeriod());
+            tryCount++;
+            }
         }
     }
 }

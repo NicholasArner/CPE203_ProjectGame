@@ -224,8 +224,8 @@ final class WorldModel
                  pt,
                  imageStore.getImageList(MINION_KEY),
                  MINION_ACTION_PERIOD,
-                 MINION_ANIMATION_PERIOD
-         );
+                 MINION_ANIMATION_PERIOD,
+         0);
          tryAddEntity(entity);
       }
 

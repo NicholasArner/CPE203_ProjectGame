@@ -111,7 +111,7 @@ public final class VirtualWorld
       if (minionCount < 3){
       Point minionNew = new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT);
       MovingEntity specialMinion = new PowerMinion("minion2", minionNew, imageStore.getImageList("minion2"),
-              0, 100);
+              0, 100, 0);
       world.addEntity(specialMinion);
       specialMinion.scheduleActions(scheduler, world, imageStore);
 
@@ -173,6 +173,12 @@ public final class VirtualWorld
 
          view.drawViewport();
 
+      }
+      if (key == 'm'){
+         RegularMinion newMin = new RegularMinion("minion1", new Point(brow.getPosition().getX(),
+                 brow.getPosition().getY()), imageStore.getImageList("minion1"), 0,0, brow.getPosition().getX());
+         world.addEntity(newMin);
+         newMin.scheduleActions(scheduler, world, imageStore);
       }
       setup();
 
