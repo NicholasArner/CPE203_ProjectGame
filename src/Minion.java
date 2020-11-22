@@ -14,7 +14,7 @@ public abstract class Minion extends MovingEntity{
     @Override
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> nearestMario = world.findNearest(getPosition(), Mario.class);
-        Point target = new Point(0, 0);
+        Point target = new Point(17, 15);
         if (nearestMario.isPresent()){
             target = nearestMario.get().getPosition();
         }

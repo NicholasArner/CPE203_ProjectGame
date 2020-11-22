@@ -33,8 +33,8 @@ public class DFSPathingStrategy implements PathingStrategy {
         else {
                 if (canPassThrough.test(upN) && (!closedList.containsKey(upN))) {
                     closedList.put(current, "lol");
-                    path.add(downN);
-                    current = downN;
+                    path.add(upN);
+                    current = upN;
                 }
             else {
                 if (canPassThrough.test(rightN) && (!closedList.containsKey(rightN)))
