@@ -98,6 +98,7 @@ public final class VirtualWorld
    public void mousePressed() {
 
 
+      if (key == ' '){
       if (minionCount < 3){
       Point minionNew = new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT);
       MovingEntity specialMinion = new Minion("minion2", minionNew, imageStore.getImageList("minion2"),
@@ -120,7 +121,7 @@ public final class VirtualWorld
       else{
          checkMinionCount = true;
          redraw();
-      }
+      }}
    }
 
    public void keyPressed()
