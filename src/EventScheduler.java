@@ -6,9 +6,9 @@ EventScheduler: ideally our way of controlling what happens in our virtual world
 
 final class EventScheduler
 {
-   private PriorityQueue<Event> eventQueue;
-   private Map<Entity, List<Event>> pendingEvents;
-   private double timeScale;
+   private final PriorityQueue<Event> eventQueue;
+   private final Map<Entity, List<Event>> pendingEvents;
+   private final double timeScale;
 
    public EventScheduler(double timeScale)
    {
@@ -17,64 +17,6 @@ final class EventScheduler
       this.timeScale = timeScale;
    }
 
-//   public void scheduleActions(Entity entity,
-//                                      WorldModel world, ImageStore imageStore)
-//   {
-//      switch (entity.getKind())
-//      {
-//         case OCTO_FULL:
-//            scheduleEvent(entity,
-//                    entity.createActivityAction(world, imageStore),
-//                    entity.getActionPeriod());
-//            scheduleEvent(entity, entity.createAnimationAction(0),
-//                    entity.getAnimationPeriod());
-//            break;
-//
-//         case OCTO_NOT_FULL:
-//            scheduleEvent(entity,
-//                    entity.createActivityAction(world, imageStore),
-//                    entity.getActionPeriod());
-//            scheduleEvent(entity,
-//                    entity.createAnimationAction(0), entity.getAnimationPeriod());
-//            break;
-//
-//         case FISH:
-//            scheduleEvent(entity,
-//                    entity.createActivityAction(world, imageStore),
-//                    entity.getActionPeriod());
-//            break;
-//
-//         case CRAB:
-//            scheduleEvent(entity,
-//                    entity.createActivityAction(world, imageStore),
-//                    entity.getActionPeriod());
-//            scheduleEvent(entity,
-//                    entity.createAnimationAction(0), entity.getAnimationPeriod());
-//            break;
-//
-//         case QUAKE:
-//            scheduleEvent(entity,
-//                    entity.createActivityAction(world, imageStore),
-//                    entity.getActionPeriod());
-//            scheduleEvent(entity,
-//                    entity.createAnimationAction(QUAKE_ANIMATION_REPEAT_COUNT),
-//                    entity.getAnimationPeriod());
-//            break;
-//
-//         case SGRASS:
-//            scheduleEvent(entity,
-//                    entity.createActivityAction(world, imageStore),
-//                    entity.getActionPeriod());
-//            break;
-//         case ATLANTIS:
-//            scheduleEvent(entity,
-//                    entity.createAnimationAction(ATLANTIS_ANIMATION_REPEAT_COUNT),
-//                    entity.getAnimationPeriod());
-//            break;
-//
-//         default:
-//      }
-//   }
    public void scheduleEvent(Entity entity, Action action, long afterPeriod)
    {
       long time = System.currentTimeMillis() +

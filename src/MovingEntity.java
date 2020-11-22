@@ -32,6 +32,7 @@ public abstract class MovingEntity extends AnimatedEntity{
                 occupant.ifPresent(scheduler::unscheduleAllEvents);
 
                 world.moveEntity(this, nextPos);
+                Point newPos = this.getPosition();
             }
             return false;
         }

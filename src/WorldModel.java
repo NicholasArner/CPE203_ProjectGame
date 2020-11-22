@@ -203,7 +203,7 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[BROWSER_COL]),
                  Integer.parseInt(properties[BROWSER_ROW]));
-         Entity entity = new Mario(properties[BROWSER_ID],
+         Entity entity = new Browser(properties[BROWSER_ID],
                  pt,
                  imageStore.getImageList(BROWSER_KEY),
                  BROWSER_ACTION_PERIOD,
@@ -220,7 +220,7 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[MINION_COL]),
                  Integer.parseInt(properties[MINION_ROW]));
-         Entity entity = new Mario(properties[MINION_ID],
+         Entity entity = new Minion(properties[MINION_ID],
                  pt,
                  imageStore.getImageList(MINION_KEY),
                  MINION_ACTION_PERIOD,
@@ -312,7 +312,7 @@ final class WorldModel
       addEntity(entity);
    }
 
-   private boolean withinBounds(Point pos)
+   public boolean withinBounds(Point pos)
    {
       return pos.getY() >= 0 && pos.getY() < this.numRows &&
               pos.getX() >= 0 && pos.getX() < this.numCols;

@@ -49,17 +49,17 @@ public class Octo_Not_Full extends Octo{
 
     @Override
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> notFullTarget = world.findNearest(super.getPosition(),
-                Fish.class);
-
-        if (!notFullTarget.isPresent() ||
-                !moveTo( world, notFullTarget.get(), scheduler) ||
-                !transform( world, scheduler, imageStore))
-        {
-            scheduler.scheduleEvent(this,
-                    createActivityAction(world, imageStore),
-                    super.getActionPeriod());
-        }
+//        Optional<Entity> notFullTarget = world.findNearest(super.getPosition(),
+//                Fish.class);
+//
+//        if (!notFullTarget.isPresent() ||
+//                !moveTo( world, notFullTarget.get(), scheduler) ||
+//                !transform( world, scheduler, imageStore))
+//        {
+//            scheduler.scheduleEvent(this,
+//                    createActivityAction(world, imageStore),
+//                    super.getActionPeriod());
+//        }
     }
 
     @Override
