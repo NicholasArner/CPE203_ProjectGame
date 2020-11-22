@@ -87,6 +87,12 @@ public final class VirtualWorld
       view.drawViewport();
    }
 
+   public void mousePressed() {
+      world.addEntity(new Minion("minion1", new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT), imageStore.getImageList("minion1"),
+              0, 100));
+      redraw();
+   }
+
    public void keyPressed()
    {
       if (key == CODED)
@@ -97,19 +103,28 @@ public final class VirtualWorld
          switch (keyCode)
          {
             case UP:
+              // Point newBrow = new Point(curr.getX(), curr.getY() - 1);
+             //  brow.setPosition(newBrow);
                dy = -1;
                break;
             case DOWN:
+               //Point newBrow2 = new Point(curr.getX(), curr.getY() + 1);
+               //brow.setPosition(newBrow2);
                dy = 1;
                break;
             case LEFT:
+              // Point newBrow3 = new Point(curr.getX() -1, curr.getY());
+              // brow.setPosition(newBrow3);
                dx = -1;
                break;
             case RIGHT:
+              // Point newBrow4 = new Point(curr.getX() +1, curr.getY());
+               //brow.setPosition(newBrow4);
                dx = 1;
                break;
          }
          view.shiftView(dx, dy);
+         view.drawViewport();
       }
    }
 

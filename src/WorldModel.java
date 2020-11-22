@@ -66,6 +66,14 @@ final class WorldModel
    private static final int MARIO_LUIGI_ACTION_PERIOD = 1100;
    private static final int MARIO_LUIGI_ANIMATION_PERIOD = 100;
 
+   private static final String MINION_KEY = "minion1";
+   private static final int MINION_NUM_PROPERTIES = 4;
+   private static final int MINION_ID = 1;
+   private static final int MINION_COL = 2;
+   private static final int MINION_ROW = 3;
+   private static final int MINION_ACTION_PERIOD = 1100;
+   private static final int MINION_ANIMATION_PERIOD = 100;
+
    private static final String BROWSER_KEY = "browser";
    private static final int BROWSER_NUM_PROPERTIES = 4;
    private static final int BROWSER_ID = 1;
@@ -162,6 +170,9 @@ final class WorldModel
             case LUIGI_KEY:
                return parseLuigi(properties, imageStore);
 
+            case MINION_KEY:
+               return parseMinion(properties, imageStore);
+
             case BROWSER_KEY:
                return parseBrowser(properties, imageStore);
 
@@ -204,6 +215,23 @@ final class WorldModel
       return properties.length == BROWSER_NUM_PROPERTIES;
    }
 
+   private boolean parseMinion(String[] properties, ImageStore imageStore){
+      if (properties.length == MINION_NUM_PROPERTIES)
+      {
+         Point pt = new Point(Integer.parseInt(properties[MINION_COL]),
+                 Integer.parseInt(properties[MINION_ROW]));
+         Entity entity = new Mario(properties[MINION_ID],
+                 pt,
+                 imageStore.getImageList(MINION_KEY),
+                 MINION_ACTION_PERIOD,
+                 MINION_ANIMATION_PERIOD
+         );
+         tryAddEntity(entity);
+      }
+
+      return properties.length == MINION_NUM_PROPERTIES;
+   }
+
    private boolean parseMario(String[] properties, ImageStore imageStore){
       if (properties.length == MARIO_LUIGI_NUM_PROPERTIES)
       {
@@ -238,6 +266,7 @@ final class WorldModel
       return properties.length == MARIO_LUIGI_NUM_PROPERTIES;
    }
 
+
    private boolean parseOcto(String [] properties, ImageStore imageStore)
    {
       if (properties.length == OCTO_NUM_PROPERTIES)
@@ -271,7 +300,7 @@ final class WorldModel
       return properties.length == OBSTACLE_NUM_PROPERTIES;
    }
 
-   private void tryAddEntity(Entity entity)
+   public void tryAddEntity(Entity entity)
    {
       if (isOccupied(entity.getPosition()))
       {
