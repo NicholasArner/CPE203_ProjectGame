@@ -1,8 +1,13 @@
-
+quake images/quake1.bmp 255 255 255 0
+quake2 images/quake2.bmp 255 255 255 0
+quake3 images/quake3.bmp 255 255 255 0
+quake4 images/quake4.bmp 255 255 255 0
+quake5 images/quake5.bmp 255 255 255 0
+quake6 images/quake6.bmp 255 255 255 0
 grass images/grasstest_1.bmp
 octo images/s1.bmp 255 255 255 0
 octo images/s2.bmp 255 255 255 0
-octo images/s3.bmp 255 255 255 0
+minion2 images/s3.bmp 255 255 255 0
 octo images/s4.bmp 255 255 255 0
 octo images/s5.bmp 255 255 255 0
 obstacle images/bricks.bmp

@@ -6,7 +6,7 @@ public class Quake extends AnimatedEntity{
     private static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
     private static final String QUAKE_ID = "quake";
     private static final int QUAKE_ACTION_PERIOD = 1100;
-    private static final int QUAKE_ANIMATION_PERIOD = 100;
+    private static final int QUAKE_ANIMATION_PERIOD = 500;
 
 //    public Quake(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, int actionPeriod, int animationPeriod) {
 //        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod);

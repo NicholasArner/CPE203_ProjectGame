@@ -48,6 +48,8 @@ public final class VirtualWorld
    private EventScheduler scheduler;
 
    private long next_time;
+   int minionCount = 0;
+   boolean checkMinionCount = false;
 
    public void settings()
    {
@@ -59,6 +61,7 @@ public final class VirtualWorld
    */
    public void setup()
    {
+
       this.imageStore = new ImageStore(
          createImageColored(TILE_WIDTH, TILE_HEIGHT, DEFAULT_IMAGE_COLOR));
       this.world = new WorldModel(WORLD_ROWS, WORLD_COLS,
@@ -77,6 +80,7 @@ public final class VirtualWorld
 
    public void draw()
    {
+
       long time = System.currentTimeMillis();
       if (time >= next_time)
       {
@@ -88,9 +92,31 @@ public final class VirtualWorld
    }
 
    public void mousePressed() {
-      world.addEntity(new Minion("minion1", new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT), imageStore.getImageList("minion1"),
-              0, 100));
-      redraw();
+
+
+      if (minionCount < 3){
+      Point minionNew = new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT);
+      MovingEntity specialMinion = new Minion("minion2", minionNew, imageStore.getImageList("minion2"),
+              0, 100);
+      world.addEntity(specialMinion);
+      specialMinion.scheduleActions(scheduler, world, imageStore);
+
+      ActiveEntity quake4 = new Quake(new Point(minionNew.getX(), minionNew.getY()-1),
+              imageStore.getImageList("quake4"));
+      ActiveEntity quake5 = new Quake(new Point(minionNew.getX(), minionNew.getY()+1),
+              imageStore.getImageList("quake4"));
+
+
+      world.addEntity(quake4);
+      quake4.scheduleActions(scheduler, world, imageStore);
+      world.addEntity(quake5);
+      quake5.scheduleActions(scheduler, world, imageStore);
+      minionCount++;
+      redraw();}
+      else{
+         checkMinionCount = true;
+         redraw();
+      }
    }
 
    public void keyPressed()
