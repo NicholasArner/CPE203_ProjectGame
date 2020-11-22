@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class Octo_Not_Full extends Octo{
+    protected Octo_Not_Full(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
+        super(id, position, images, actionPeriod, animationPeriod);
+    }
 //    public Octo_Not_Full(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, int actionPeriod, int animationPeriod) {
 //        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod);
 //    }
-    protected Octo_Not_Full(String id, int resourceLimit, Point position, int actionPeriod, int animationPeriod, List<PImage> images){
-        super(id, position, images, resourceLimit, 0, actionPeriod, animationPeriod);
-    }
+
+
 
 //    @Override
 //    public Point nextPosition(WorldModel world, Point destPos) {
@@ -62,21 +64,26 @@ public class Octo_Not_Full extends Octo{
 
     @Override
     protected boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        if (this.getResourceCount() >= this.getResourceLimit())
-        {
-            ActiveEntity octo = new Octo_Full(this.getId(), this.getResourceLimit(),
-                    this.getPosition(), this.getActionPeriod(), this.getAnimationPeriod(),
-                    this.getImages());
-
-            world.removeEntity(this);
-            scheduler.unscheduleAllEvents(this);
-
-            world.addEntity(octo);
-            octo.scheduleActions(scheduler, world, imageStore);
-
-            return true;
-        }
-
         return false;
     }
+
+//    @Override
+//    protected boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+//        if (this.getResourceCount() >= this.getResourceLimit())
+//        {
+//            ActiveEntity octo = new Octo_Full(this.getId(), this.getResourceLimit(),
+//                    this.getPosition(), this.getActionPeriod(), this.getAnimationPeriod(),
+//                    this.getImages());
+//
+//            world.removeEntity(this);
+//            scheduler.unscheduleAllEvents(this);
+//
+//            world.addEntity(octo);
+//            octo.scheduleActions(scheduler, world, imageStore);
+//
+//            return true;
+//        }
+//
+//        return false;
+//    }
 }

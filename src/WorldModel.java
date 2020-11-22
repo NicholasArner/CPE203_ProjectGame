@@ -153,24 +153,8 @@ final class WorldModel
          {
             case BGND_KEY:
                return parseBackground(properties, imageStore);
-            case OCTO_KEY:
-               return parseOcto(properties, imageStore);
             case OBSTACLE_KEY:
                return parseObstacle(properties, imageStore);
-            case FISH_KEY:
-               return parseFish(properties, imageStore);
-               //Entity fish = Entity.parse(properties, imageStore);
-               //addEntity(fish);
-            case ATLANTIS_KEY:
-               return parseAtlantis(properties, imageStore);
-               //Entity atlantis = Entity.parse(properties, imageStore);
-               //addEntity(atlantis);
-               //return Atlantis.parse(properties, imageStore, this);
-
-            case SGRASS_KEY:
-               return parseSgrass(properties, imageStore);
-               //Entity sgrass = Entity.parse(properties, imageStore);
-               //addEntity(sgrass);
 
             case MARIO_KEY:
                return parseMario(properties, imageStore);
@@ -180,6 +164,9 @@ final class WorldModel
 
             case BROWSER_KEY:
                return parseBrowser(properties, imageStore);
+
+            case OCTO_KEY:
+               return parseOcto(properties, imageStore);
          }
       }
 
@@ -258,11 +245,11 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
                  Integer.parseInt(properties[OCTO_ROW]));
          Entity entity = new Octo_Not_Full(properties[OCTO_ID],
-                 Integer.parseInt(properties[OCTO_LIMIT]),
                  pt,
+                 imageStore.getImageList(OCTO_KEY),
                  Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
-                 Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
-                 imageStore.getImageList(OCTO_KEY));
+                 Integer.parseInt(properties[OCTO_ANIMATION_PERIOD])
+                 );
          tryAddEntity(entity);
       }
 
@@ -282,52 +269,6 @@ final class WorldModel
       }
 
       return properties.length == OBSTACLE_NUM_PROPERTIES;
-   }
-
-   private boolean parseFish(String [] properties, ImageStore imageStore)
-   {
-      if (properties.length == FISH_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[FISH_COL]),
-                 Integer.parseInt(properties[FISH_ROW]));
-         Entity entity = new Fish(properties[FISH_ID],
-                 pt, Integer.parseInt(properties[FISH_ACTION_PERIOD]),
-                 imageStore.getImageList(FISH_KEY));
-         tryAddEntity(entity);
-      }
-
-      return properties.length == FISH_NUM_PROPERTIES;
-   }
-
-   private boolean parseAtlantis(String [] properties, ImageStore imageStore)
-   {
-      if (properties.length == ATLANTIS_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
-                 Integer.parseInt(properties[ATLANTIS_ROW]));
-         Entity entity = new Atlantis(properties[ATLANTIS_ID],
-                 pt, imageStore.getImageList(ATLANTIS_KEY));
-         tryAddEntity(entity);
-      }
-
-      return properties.length == ATLANTIS_NUM_PROPERTIES;
-   }
-
-   private boolean parseSgrass(String [] properties,
-                               ImageStore imageStore)
-   {
-      if (properties.length == SGRASS_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[SGRASS_COL]),
-                 Integer.parseInt(properties[SGRASS_ROW]));
-         Entity entity = new SGrass(properties[SGRASS_ID],
-                 pt,
-                 Integer.parseInt(properties[SGRASS_ACTION_PERIOD]),
-                 imageStore.getImageList(SGRASS_KEY));
-         tryAddEntity(entity);
-      }
-
-      return properties.length == SGRASS_NUM_PROPERTIES;
    }
 
    private void tryAddEntity(Entity entity)
@@ -475,62 +416,6 @@ final class WorldModel
    {
       this.background[pos.getY()][pos.getX()] = background;
    }
-
-//   private Entity createAtlantis(String id, Point position,
-//                                 List<PImage> images)
-//   {
-//      return new Atlantis(id, position, images,
-//              0, 0, 0, 0);
-//   }
-
-//   public Entity createOctoFull(String id, int resourceLimit,
-//                                Point position, int actionPeriod, int animationPeriod,
-//                                List<PImage> images)
-//   {
-//      return new Octo_Full(id, position, images,
-//              resourceLimit, resourceLimit, actionPeriod, animationPeriod);
-//   }
-//
-//   public Entity createOctoNotFull(String id, int resourceLimit,
-//                                   Point position, int actionPeriod, int animationPeriod,
-//                                   List<PImage> images)
-//   {
-//      return new Octo_Not_Full(id, position, images,
-//              resourceLimit, 0, actionPeriod, animationPeriod);
-//   }
-//   private Entity createObstacle(String id, Point position,
-//                                 List<PImage> images)
-//   {
-//      return new Obstacle(id, position, images,
-//              0, 0, 0, 0);
-//   }
-
-//   public Entity createFish(String id, Point position, int actionPeriod,
-//                                   List<PImage> images)
-//   {
-//      return new Fish(id, position, images, 0, 0,
-//              actionPeriod, 0);
-//   }
-
-//   public Entity createCrab(String id, Point position,
-//                            int actionPeriod, int animationPeriod, List<PImage> images)
-//   {
-//      return new Crab(id, position, images,
-//              0, 0, actionPeriod, animationPeriod);
-//   }
-
-//   public Entity createQuake(Point position, List<PImage> images)
-//   {
-//      return new Quake(QUAKE_ID, position, images,
-//              0, 0, QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
-//   }
-
-//   private Entity createSgrass(String id, Point position, int actionPeriod,
-//                               List<PImage> images)
-//   {
-//      return new SGrass(id, position, images, 0, 0,
-//              actionPeriod, 0);
-//   }
 
    public void removeEntity(Entity entity)
    {

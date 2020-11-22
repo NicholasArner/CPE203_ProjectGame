@@ -11,7 +11,7 @@ public class Crab extends MovingEntity{
 //    }
 
     protected Crab(String id, Point position, int actionPeriod, int animationPeriod, List<PImage> images){
-        super(id, position, images, 0, 0, actionPeriod, animationPeriod);
+        super(id, position, images, actionPeriod, animationPeriod);
     }
 
     @Override

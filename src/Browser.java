@@ -2,9 +2,14 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Browser extends AnimatedEntity{
+public class Browser extends MovingEntity{
     protected Browser(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
         super(id, position, images, actionPeriod, animationPeriod);
+    }
+
+    @Override
+    protected Point nextPosition(WorldModel world, Point destPos) {
+        return null;
     }
 
     @Override

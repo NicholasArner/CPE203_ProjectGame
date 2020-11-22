@@ -7,13 +7,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AStarPathingStrategy implements PathingStrategy{
-    //private List<Point> closedList = new ArrayList<>();
-    private Hashtable<Point, Node> closedList = new Hashtable<>();
+    private final Hashtable<Point, Node> closedList = new Hashtable<>();
+    private final PriorityQueue<Node> openList = new PriorityQueue<>(Comparator.comparingInt(Node::getF).thenComparing(Node::getG));
     private Node current;
 
-    private Hashtable<Point, Node> allPoints = new Hashtable<>();
+    private final Hashtable<Point, Node> allPoints = new Hashtable<>();
 
     Predicate<Point> notInClosedList = p -> !closedList.containsKey(p);
+
 
     @Override
     public List<Point> computePath(Point start, Point end, Predicate<Point> canPassThrough, BiPredicate<Point, Point> withinReach, Function<Point, Stream<Point>> potentialNeighbors) {
@@ -21,46 +22,83 @@ public class AStarPathingStrategy implements PathingStrategy{
         // Manhattan distance is simply the sum of the distance in x and the distance in y
         // use streams with canPassThrough, withinReach, and potential neighbors to create openList
 
-        if (current == null){
-            current = new Node(start);
+        openList.clear();
+        closedList.clear();
+        allPoints.clear();
+
+        current = createNode(start, start, end);
+        openList.add(current);
+
+        boolean found = false;
+
+        Function<Point, Node> createNodes = p -> createNode(p, start, end);
+        Consumer<Node> addNodes = openList::add;
+
+        while (!found){
+            List<Point> adjacentPoints = potentialNeighbors.apply(current.getPoint()).filter(canPassThrough).filter(notInClosedList).collect(Collectors.toList());
+
+            List<Node> nodes = adjacentPoints.stream().map(createNodes).collect(Collectors.toList());
+
+            nodes.forEach(addNodes);
+
+            openList.remove(current);
+            closedList.put(current.getPoint(), current);
+
+            current = openList.peek();
+
+            if (current == null) return new ArrayList<>(); // return empty list if stuck
+            found = withinReach.test(current.getPoint(), end);
         }
 
-        List<Point> neighbors = CARDINAL_NEIGHBORS.apply(current.getPoint()).filter(canPassThrough).collect(Collectors.toList());
+        List<Point> Path = new ArrayList<>();
+        Path.add(current.getPoint());
+        Node prevNode = current.getParentNode();
+        while (prevNode != null) {
+            if (!prevNode.getPoint().equals(start))
+                Path.add(prevNode.getPoint());
+            prevNode = prevNode.getParentNode();
+        }
+        Collections.reverse(Path);
+        return Path;
+    }
 
-        // might need to change this when calculating g val,
-        Function<Point, Integer> findG = p -> Math.abs(p.getX() - start.getX()) + Math.abs(p.getY() - start.getY() + 1);
-        Function<Point, Integer> findH = p -> Math.abs(p.getX() - end.getX()) + Math.abs(p.getY() - end.getY());
-        Function<Point, Integer> findF = p -> findG.apply(p) + findH.apply(p);
-        Function<Point, Node> createNode = p -> new Node(p, findG.apply(p), findH.apply(p), findF.apply(p), current);
+    private Node createNode(Point p, Point start, Point end){
+        int h = Math.abs(p.getX() - end.getX()) + Math.abs(p.getY() - end.getY()) * 10;
+        int f = h;
 
-        Stream<Node> openNodes = CARDINAL_NEIGHBORS.apply(current.getPoint()).filter(canPassThrough).filter(notInClosedList).map(createNode);
+        int g;
 
-        if (openNodes.count() == 0) return null;
+        if (p.equals(start)){
+            return new Node(p, 0, h, f, null);
+        }
+        if (isDiagonal(p, current.getPoint())) g = current.getG() + 14;
+        else g = current.getG() + 10;
 
-        List<Integer> f_vals = openNodes.map(Node::getF).collect(Collectors.toList());
+        Node node_created = allPoints.get(p);
 
-        int min_f_val = Collections.min(f_vals);
-        Predicate<Node> lowestF_val = n -> min_f_val == n.getF();
-
-        List<Node> nextNodes = openNodes.filter(lowestF_val).limit(1).collect(Collectors.toList());
-
-        Node nextNode = nextNodes.get(0);
-
-        closedList.put(current.getPoint(), current);
-
-        current = nextNode;
-
-        if (computePath(start, end, canPassThrough, withinReach, potentialNeighbors) != null){
-            if (withinReach.test(current.getPoint(), end)) {
-                List<Point> Path = new ArrayList<>();
-                Node prevNode = current.getParentNode();
-                while (prevNode != null){
-                    Path.add(prevNode.getPoint());
-                    prevNode = prevNode.getParentNode();
-                }
-                return Path;
+        if (node_created != null){
+            // reinsert this new node into the openlist
+            openList.remove(node_created);
+            int g2 = node_created.getG();
+            g = Math.min(g, g2);
+            if (g < g2){
+                return new Node(p, g, h, g+h, current);
             }
+            return node_created;
+
         }
-        return null;
+
+        f = h + g;
+        Node new_Node = new Node(p, g, h, f, current);
+
+        allPoints.put(new_Node.getPoint(), new_Node);
+        return new_Node;
+    }
+
+    private boolean isDiagonal(Point p1, Point p2){
+        return p1.getX()+1 == p2.getX() && p1.getY()+1 == p2.getY() ||
+                p1.getX()-1 == p2.getX() && p1.getY()-1 == p2.getY() ||
+                p1.getX()+1 == p2.getX() && p1.getY()-1 == p2.getY() ||
+                p1.getX()-1 == p2.getX() && p1.getY()+1 == p2.getY();
     }
 }

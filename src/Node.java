@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Node {
     private int h;
     private int g;
@@ -16,6 +18,30 @@ public class Node {
         this.h = h;
         this.f = f;
         this.ParentNode = parentNode;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "h=" + h +
+                ", g=" + g +
+                ", f=" + f +
+                ", point=" + point +
+                ", ParentNode=" + ParentNode +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return Objects.equals(point, node.point);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(point);
     }
 
     public int getH() {

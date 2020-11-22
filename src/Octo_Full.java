@@ -8,8 +8,8 @@ public class Octo_Full extends Octo{
 //        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod);
 //    }
 
-    protected Octo_Full(String id, int resourceLimit, Point position, int actionPeriod, int animationPeriod, List<PImage> images){
-        super(id, position, images, resourceLimit, resourceLimit, actionPeriod, animationPeriod);
+    protected Octo_Full(String id, Point position, int actionPeriod, int animationPeriod, List<PImage> images){
+        super(id, position, images, actionPeriod, animationPeriod);
     }
 
     @Override
@@ -39,6 +39,11 @@ public class Octo_Full extends Octo{
         }
     }
 
+    @Override
+    protected boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+        return false;
+    }
+
 //    @Override
 //    public Point nextPosition(WorldModel world, Point destPos) {
 //        return null;
@@ -49,21 +54,21 @@ public class Octo_Full extends Octo{
 //        return false;
 //    }
 
-    @Override
-    protected boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore){
-
-        ActiveEntity octo = new Octo_Not_Full(this.getId(), this.getResourceLimit(),
-                this.getPosition(), this.getActionPeriod(), this.getAnimationPeriod(),
-                this.getImages());
-
-        world.removeEntity(this);
-        scheduler.unscheduleAllEvents(this);
-
-        world.addEntity(octo);
-        octo.scheduleActions(scheduler, world, imageStore);
-
-        return false;
-
-    }
+//    @Override
+//    protected boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore){
+//
+//        ActiveEntity octo = new Octo_Not_Full(this.getId(), this.getResourceLimit(),
+//                this.getPosition(), this.getActionPeriod(), this.getAnimationPeriod(),
+//                this.getImages());
+//
+//        world.removeEntity(this);
+//        scheduler.unscheduleAllEvents(this);
+//
+//        world.addEntity(octo);
+//        octo.scheduleActions(scheduler, world, imageStore);
+//
+//        return false;
+//
+//    }
 
 }
