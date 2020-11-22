@@ -24,6 +24,11 @@ public abstract class Minion extends MovingEntity{
                     createActivityAction(world, imageStore),
                     getActionPeriod());
         }
+        else{
+            // minion should already be there
+            nearestMario.ifPresent(scheduler::unscheduleAllEvents);
+            world.moveEntity(this, target);
+        }
     }
 
     public static boolean neighbors(Point p1, Point p2)

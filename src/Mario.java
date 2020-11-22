@@ -3,8 +3,9 @@ import processing.core.PImage;
 import java.util.List;
 
 public class Mario extends GoalFinder{
-    protected Mario(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
-        super(id, position, images, actionPeriod, animationPeriod);
+
+    protected Mario(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, WorldModel world) {
+        super(id, position, images, actionPeriod, animationPeriod, world);
     }
 
     @Override

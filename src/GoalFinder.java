@@ -6,16 +6,18 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public abstract class GoalFinder extends MovingEntity{
-    private int num_lives = 3;
+    private int lives = 3;
     private final PathingStrategy strategy = new AStarPathingStrategy();
     private List<Point> currentPath;
+    private final WorldModel world;
 
-    protected GoalFinder(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod) {
+    protected GoalFinder(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, WorldModel world) {
         super(id, position, images, actionPeriod, animationPeriod);
+        this.world = world;
     }
 
-    public int getNum_lives() {
-        return num_lives;
+    public int getLives() {
+        return lives;
     }
 
     public Point nextPosition(WorldModel world, Point destPos){
@@ -40,5 +42,10 @@ public abstract class GoalFinder extends MovingEntity{
                 p1.getX()-1 == p2.getX() && p1.getY() == p2.getY() ||
                 p1.getX() == p2.getX() && p1.getY()+1 == p2.getY() ||
                 p1.getX() == p2.getX() && p1.getY()-1 == p2.getY();
+    }
+
+    public void hit(){
+        if (lives == 1) world.removeEntity(this);
+        else lives -= 1;
     }
 }

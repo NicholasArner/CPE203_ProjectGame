@@ -241,7 +241,8 @@ final class WorldModel
                  pt,
                  imageStore.getImageList(MARIO_KEY),
                  MARIO_LUIGI_ACTION_PERIOD,
-                 MARIO_LUIGI_ANIMATION_PERIOD
+                 MARIO_LUIGI_ANIMATION_PERIOD,
+                 this
                  );
          tryAddEntity(entity);
       }
@@ -258,7 +259,8 @@ final class WorldModel
                  pt,
                  imageStore.getImageList(LUIGI_KEY),
                  MARIO_LUIGI_ACTION_PERIOD,
-                 MARIO_LUIGI_ANIMATION_PERIOD
+                 MARIO_LUIGI_ANIMATION_PERIOD,
+                 this
          );
          tryAddEntity(entity);
       }
