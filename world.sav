@@ -77,7 +77,8 @@ background grass 11 0
 background grass 12 0
 background grass 13 0
 background grass 14 0
-background browser 15 0
+background grass 15 0
+browser browser 15 0
 background grass 16 0
 background grass 17 0
 background grass 18 0
@@ -836,8 +837,10 @@ background grass 10 19
 background grass 11 19
 background grass 12 19
 background grass 13 19
+background grass 14 19
 mario mario 14 19
 background grass 15 19
+background grass 16 19
 luigi luigi 16 19
 background grass 17 19
 background grass 18 19

@@ -66,6 +66,14 @@ final class WorldModel
    private static final int MARIO_LUIGI_ACTION_PERIOD = 1100;
    private static final int MARIO_LUIGI_ANIMATION_PERIOD = 100;
 
+   private static final String BROWSER_KEY = "browser";
+   private static final int BROWSER_NUM_PROPERTIES = 4;
+   private static final int BROWSER_ID = 1;
+   private static final int BROWSER_COL = 2;
+   private static final int BROWSER_ROW = 3;
+   private static final int BROWSER_ACTION_PERIOD = 1100;
+   private static final int BROWSER_ANIMATION_PERIOD = 100;
+
    private final int numRows;
    private final int numCols;
    private final Background[][] background;
@@ -169,6 +177,9 @@ final class WorldModel
 
             case LUIGI_KEY:
                return parseLuigi(properties, imageStore);
+
+            case BROWSER_KEY:
+               return parseBrowser(properties, imageStore);
          }
       }
 
@@ -187,6 +198,23 @@ final class WorldModel
       }
 
       return properties.length == BGND_NUM_PROPERTIES;
+   }
+
+   private boolean parseBrowser(String[] properties, ImageStore imageStore){
+      if (properties.length == BROWSER_NUM_PROPERTIES)
+      {
+         Point pt = new Point(Integer.parseInt(properties[BROWSER_COL]),
+                 Integer.parseInt(properties[BROWSER_ROW]));
+         Entity entity = new Mario(properties[BROWSER_ID],
+                 pt,
+                 imageStore.getImageList(BROWSER_KEY),
+                 BROWSER_ACTION_PERIOD,
+                 BROWSER_ANIMATION_PERIOD
+         );
+         tryAddEntity(entity);
+      }
+
+      return properties.length == BROWSER_NUM_PROPERTIES;
    }
 
    private boolean parseMario(String[] properties, ImageStore imageStore){
