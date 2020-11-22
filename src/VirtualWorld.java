@@ -1,6 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.Scanner;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import processing.core.*;
 
 /*
@@ -51,6 +55,8 @@ public final class VirtualWorld
    int minionCount = 0;
    boolean checkMinionCount = false;
 
+   private static Entity brow; // playable character
+
    public void settings()
    {
       size(VIEW_WIDTH, VIEW_HEIGHT);
@@ -61,7 +67,7 @@ public final class VirtualWorld
    */
    public void setup()
    {
-      if (key == ' '){
+      //if (key == ' '){
 
       this.imageStore = new ImageStore(
          createImageColored(TILE_WIDTH, TILE_HEIGHT, DEFAULT_IMAGE_COLOR));
@@ -76,12 +82,13 @@ public final class VirtualWorld
 
       scheduleActions(world, scheduler, imageStore);
 
-      next_time = System.currentTimeMillis() + TIMER_ACTION_PERIOD;}
+      next_time = System.currentTimeMillis() + TIMER_ACTION_PERIOD;
+      //}
    }
 
    public void draw()
    {
-      if (key == ' '){
+      //if (key == ' '){
 
       long time = System.currentTimeMillis();
       if (time >= next_time)
@@ -90,7 +97,8 @@ public final class VirtualWorld
          next_time = time + TIMER_ACTION_PERIOD;
       }
 
-      view.drawViewport();}
+      view.drawViewport();
+      //}
       //update
    }
 
@@ -131,11 +139,13 @@ public final class VirtualWorld
          int dx = 0;
          int dy = 0;
 
+
+
          switch (keyCode)
          {
             case UP:
-              // Point newBrow = new Point(curr.getX(), curr.getY() - 1);
-             //  brow.setPosition(newBrow);
+//               Point newBrow = new Point(curr.getX(), curr.getY() - 1);
+//               brow.setPosition(newBrow);
                dy = -1;
                break;
             case DOWN:
@@ -154,11 +164,23 @@ public final class VirtualWorld
                dx = 1;
                break;
          }
-         view.shiftView(dx, dy);
-         view.drawViewport();
+         int prevX = brow.getPosition().getX();
+         int prevY = brow.getPosition().getY();
+
+         Point newPos = new Point(prevX + dx, prevY);
+
+         brow.setPosition(newPos);
+
+//         view.shiftView(dx, dy);
+         //view.drawViewport();
+         draw();
       }
 
-      setup();
+      if (key == 'c'){
+         setup();
+
+      }
+      //setup();
 
    }
 
@@ -201,6 +223,9 @@ public final class VirtualWorld
       {
          Scanner in = new Scanner(new File(filename));
          world.load(in, imageStore);
+         Predicate<Entity> checkBrowser = e -> e instanceof Browser;
+
+         brow = world.getEntities().stream().filter(checkBrowser).limit(1).collect(Collectors.toList()).get(0);
       }
       catch (FileNotFoundException e)
       {

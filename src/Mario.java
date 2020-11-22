@@ -16,6 +16,5 @@ public class Mario extends GoalFinder{
                     createActivityAction(world, imageStore),
                     getActionPeriod());
         }
-
     }
 }
