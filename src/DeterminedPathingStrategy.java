@@ -17,13 +17,13 @@ public class DeterminedPathingStrategy implements PathingStrategy{
          * on each call, the caller will need to check if the destination
          * has been reached.
          */
-        end = new Point(start.getX(), 50);
+        end = new Point(start.getX(), 21);
         Point finalEnd = end;
         return potentialNeighbors.apply(start)
                 .filter(canPassThrough)
                 .filter(pt ->
                         !pt.equals(start)
-                                && !pt.equals(finalEnd)
+                                && !start.equals(finalEnd)
                                 //&& Math.abs(end.getX() - pt.getX()) <= Math.abs(end.getX() - start.getX())
                                 && Math.abs(finalEnd.getY() - pt.getY()) <= Math.abs(finalEnd.getY() - start.getY()))
                 .limit(1)

@@ -24,6 +24,9 @@ public abstract class MovingEntity extends AnimatedEntity{
         else
         {
             Point nextPos = nextPosition(world, target.getPosition());
+            if (nextPos == null){
+                return true;
+            }
 
             if (!this.getPosition().equals(nextPos))
             {
