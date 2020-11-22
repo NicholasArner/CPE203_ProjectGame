@@ -61,6 +61,7 @@ public final class VirtualWorld
    */
    public void setup()
    {
+      if (key == ' '){
 
       this.imageStore = new ImageStore(
          createImageColored(TILE_WIDTH, TILE_HEIGHT, DEFAULT_IMAGE_COLOR));
@@ -75,11 +76,12 @@ public final class VirtualWorld
 
       scheduleActions(world, scheduler, imageStore);
 
-      next_time = System.currentTimeMillis() + TIMER_ACTION_PERIOD;
+      next_time = System.currentTimeMillis() + TIMER_ACTION_PERIOD;}
    }
 
    public void draw()
    {
+      if (key == ' '){
 
       long time = System.currentTimeMillis();
       if (time >= next_time)
@@ -88,8 +90,9 @@ public final class VirtualWorld
          next_time = time + TIMER_ACTION_PERIOD;
       }
 
-      view.drawViewport();
+      view.drawViewport();}
    }
+
 
    public void mousePressed() {
 
@@ -152,6 +155,9 @@ public final class VirtualWorld
          view.shiftView(dx, dy);
          view.drawViewport();
       }
+
+      setup();
+
    }
 
    private static Background createDefaultBackground(ImageStore imageStore)
