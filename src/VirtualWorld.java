@@ -110,7 +110,7 @@ public final class VirtualWorld
       if (checkSpace){
       if (minionCount < 3){
       Point minionNew = new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT);
-      MovingEntity specialMinion = new Minion("minion2", minionNew, imageStore.getImageList("minion2"),
+      MovingEntity specialMinion = new PowerMinion("minion2", minionNew, imageStore.getImageList("minion2"),
               0, 100);
       world.addEntity(specialMinion);
       specialMinion.scheduleActions(scheduler, world, imageStore);

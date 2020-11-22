@@ -220,7 +220,7 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[MINION_COL]),
                  Integer.parseInt(properties[MINION_ROW]));
-         Entity entity = new Minion(properties[MINION_ID],
+         Entity entity = new RegularMinion(properties[MINION_ID],
                  pt,
                  imageStore.getImageList(MINION_KEY),
                  MINION_ACTION_PERIOD,
