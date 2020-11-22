@@ -403,7 +403,7 @@ final class WorldModel
       }
    }
 
-   private void setBackground(Point pos,
+   public void setBackground(Point pos,
                               Background background)
    {
       if (withinBounds(pos))
@@ -435,7 +435,7 @@ final class WorldModel
       this.occupancy[pos.getY()][pos.getX()] = entity;
    }
 
-   private Background getBackgroundCell(Point pos)
+   public Background getBackgroundCell(Point pos)
    {
       return this.background[pos.getY()][pos.getX()];
    }

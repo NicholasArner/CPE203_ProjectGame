@@ -53,7 +53,7 @@ public final class VirtualWorld
 
    private long next_time;
    int minionCount = 0;
-   boolean checkMinionCount = false;
+   boolean checkSpace = false;
 
    private static Entity brow; // playable character
 
@@ -67,7 +67,7 @@ public final class VirtualWorld
    */
    public void setup()
    {
-      //if (key == ' '){
+      if (key == ' '){
 
       this.imageStore = new ImageStore(
          createImageColored(TILE_WIDTH, TILE_HEIGHT, DEFAULT_IMAGE_COLOR));
@@ -83,12 +83,13 @@ public final class VirtualWorld
       scheduleActions(world, scheduler, imageStore);
 
       next_time = System.currentTimeMillis() + TIMER_ACTION_PERIOD;
-      //}
+      checkSpace = true;
+      }
    }
 
    public void draw()
    {
-      //if (key == ' '){
+      if (checkSpace){
 
       long time = System.currentTimeMillis();
       if (time >= next_time)
@@ -98,7 +99,7 @@ public final class VirtualWorld
       }
 
       view.drawViewport();
-      //}
+      }
       //update
    }
 
@@ -106,7 +107,7 @@ public final class VirtualWorld
    public void mousePressed() {
 
 
-      if (key == ' '){
+      if (checkSpace){
       if (minionCount < 3){
       Point minionNew = new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT);
       MovingEntity specialMinion = new Minion("minion2", minionNew, imageStore.getImageList("minion2"),
@@ -118,23 +119,28 @@ public final class VirtualWorld
               imageStore.getImageList("quake4"));
       ActiveEntity quake5 = new Quake(new Point(minionNew.getX(), minionNew.getY()+1),
               imageStore.getImageList("quake4"));
+         world.setBackground(new Point(minionNew.getX(), minionNew.getY()-1),
+                 new Background("eventSquare", imageStore.getImageList("eventSquare")));
+         world.setBackground(new Point(minionNew.getX(), minionNew.getY()+1),
+                 new Background("eventSquare", imageStore.getImageList("eventSquare")));
 
 
-      world.addEntity(quake4);
+
+         world.addEntity(quake4);
       quake4.scheduleActions(scheduler, world, imageStore);
       world.addEntity(quake5);
       quake5.scheduleActions(scheduler, world, imageStore);
       minionCount++;
       redraw();}
       else{
-         checkMinionCount = true;
+         checkSpace = true;
          redraw();
       }}
    }
 
    public void keyPressed()
    {
-      if (key == CODED)
+     if (key == CODED)
       {
          int dx = 0;
          int dy = 0;
@@ -144,23 +150,16 @@ public final class VirtualWorld
          switch (keyCode)
          {
             case UP:
-//               Point newBrow = new Point(curr.getX(), curr.getY() - 1);
-//               brow.setPosition(newBrow);
-               dy = -1;
+
+              dy = -1;
                break;
             case DOWN:
-               //Point newBrow2 = new Point(curr.getX(), curr.getY() + 1);
-               //brow.setPosition(newBrow2);
-               dy = 1;
+              dy = 1;
                break;
             case LEFT:
-              // Point newBrow3 = new Point(curr.getX() -1, curr.getY());
-              // brow.setPosition(newBrow3);
                dx = -1;
                break;
             case RIGHT:
-              // Point newBrow4 = new Point(curr.getX() +1, curr.getY());
-               //brow.setPosition(newBrow4);
                dx = 1;
                break;
          }
@@ -171,16 +170,11 @@ public final class VirtualWorld
 
          brow.setPosition(newPos);
 
-//         view.shiftView(dx, dy);
-         //view.drawViewport();
-         draw();
-      }
 
-      if (key == 'c'){
-         setup();
+         view.drawViewport();
 
       }
-      //setup();
+      setup();
 
    }
 
