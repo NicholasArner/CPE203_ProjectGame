@@ -22,14 +22,16 @@ public abstract class GoalFinder extends MovingEntity{
         // recalculate here if next point is occupied, use world.isoccupied
        //List<Point> points = strategy.computePath(getPosition(), destPos)
         if (currentPath == null) currentPath = calculatePath(world, destPos);
-        if (world.isOccupied(currentPath.get(0))) return calculatePath(world, destPos).get(0); // recalculate path if previous path is blocked
-        return currentPath.get(0); // otherwise continue on current path
-
+        if (world.isOccupied(currentPath.get(0)))
+            currentPath = calculatePath(world, destPos);// recalculate path if previous path is blocked
+        Point ret_point = currentPath.get(0); // otherwise continue on current path
+        currentPath.remove(0); // move onto the next point
+        return ret_point;
     }
 
     private List<Point> calculatePath(WorldModel world, Point destPos){
 
-        List<Point> path = strategy.computePath(getPosition(), destPos, p-> !world.isOccupied(p) & world.withinBounds(p), GoalFinder::neighbors, PathingStrategy.CARDINAL_NEIGHBORS);
+        List<Point> path = strategy.computePath(getPosition(), destPos, p-> !world.isOccupied(p) & world.withinBounds(p), GoalFinder::neighbors, PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
         return path;
     }
 
