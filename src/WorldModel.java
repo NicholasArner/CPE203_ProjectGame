@@ -407,6 +407,8 @@ final class WorldModel
    }
 
    public void PhaseEntity(Entity entity, Point pos){
+      Point oldPos = entity.getPosition();
+      setOccupancyCell(oldPos, null);
       //removeEntityAt(pos);
       setOccupancyCell(pos, entity);
       entity.setPosition(pos);
