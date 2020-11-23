@@ -1,9 +1,9 @@
-explostion images/quake1.bmp 255 255 255 0
-explostion2 images/quake2.bmp 255 255 255 0
-explostion3 images/quake3.bmp 255 255 255 0
-explostion4 images/quake4.bmp 255 255 255 0
-explostion5 images/quake5.bmp 255 255 255 0
-explostion6 images/quake6.bmp 255 255 255 0
+explosion images/quake1.bmp 255 255 255 0
+explosion2 images/quake2.bmp 255 255 255 0
+explosion3 images/quake3.bmp 255 255 255 0
+explosion4 images/quake4.bmp 255 255 255 0
+explosion5 images/quake5.bmp 255 255 255 0
+explosion6 images/quake6.bmp 255 255 255 0
 grass images/grasstest_1.bmp
 octo images/s1.bmp 255 255 255 0
 octo images/s2.bmp 255 255 255 0
