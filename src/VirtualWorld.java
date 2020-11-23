@@ -60,6 +60,7 @@ public final class VirtualWorld
    private static Entity brow; // playable character
    private static Entity deadMario;
    private static boolean goalFindersDead = false;
+   private static boolean goalFindersVictory = false;
 
    public void settings()
    {
@@ -130,6 +131,7 @@ public final class VirtualWorld
          List<Entity> goalFinders = world.getEntities().stream().filter(checkMario).collect(Collectors.toList());
 
          goalFindersDead = true;
+
          for (Entity goalFinder : goalFinders) {
             GoalFinder goalFinder1 = (GoalFinder) goalFinder;
             if (!goalFinder1.isOutOfLives()) {
@@ -137,7 +139,22 @@ public final class VirtualWorld
                break;
             }
          }
-         if (goalFindersDead == true) {
+         goalFindersVictory = false;
+         for (Entity goalFinder : goalFinders) {
+            GoalFinder goalFinder1 = (GoalFinder) goalFinder;
+            if (!goalFinder1.isGoalFound()) {
+               goalFindersVictory = true;
+               break;
+            }
+         }
+         if (goalFindersVictory){
+            fill(6, 192, 249);
+            rect(295, 300, 400, 200);
+            textSize(50);
+            fill(249, 241, 6);
+            text("DEFEAT!\n press 'q' to exit", 300, 355);
+         }
+         if (goalFindersDead) {
             fill(6, 192, 249);
             rect(295, 300, 400, 200);
             textSize(50);
