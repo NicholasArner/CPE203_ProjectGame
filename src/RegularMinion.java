@@ -43,7 +43,7 @@ public class RegularMinion extends Minion{
 
                 if (getPosition().isAbove(goalFinder.getPosition()))
                     goalFinder.hit();
-                //goalFinder.executeActivity(world, imageStore, scheduler);
+                if (goalFinder.isOutOfLives()) scheduler.unscheduleAllEvents(goalFinder);
             }
             //world.moveEntity(this, target);
 

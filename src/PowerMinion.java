@@ -41,7 +41,7 @@ public class PowerMinion extends Minion{
                 goalFinder = (GoalFinder) nearestGoalFinder.get();
                 if (getPosition().adjacent(goalFinder.getPosition()))
                     goalFinder.hit();
-                //goalFinder.executeActivity(world, imageStore, scheduler);
+                if (goalFinder.isOutOfLives()) scheduler.unscheduleAllEvents(goalFinder);
             }
             //world.moveEntity(this, target);
             world.removeEntity(this);

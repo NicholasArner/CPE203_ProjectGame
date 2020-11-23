@@ -20,10 +20,13 @@ public class Luigi extends GoalFinder{
     }
     public void hit(){
         if (getLives() == 1){
-
+            getWorld().removeEntity(this);
+            setOutOfLives(true);
         }
-        else setLives(getLives() - 1);
-        Point start = new Point(14, 20);
-        getWorld().moveEntity(this, start);
+        else {
+            setLives(getLives() - 1);
+            Point start = new Point(14, 20);
+            getWorld().moveEntity(this, start);
+        }
     }
 }

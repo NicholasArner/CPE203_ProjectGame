@@ -10,10 +10,19 @@ public abstract class GoalFinder extends MovingEntity{
     private final PathingStrategy strategy = new AStarPathingStrategy();
     private List<Point> currentPath;
     private final WorldModel world;
+    private boolean outOfLives;
 
     protected GoalFinder(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, WorldModel world) {
         super(id, position, images, actionPeriod, animationPeriod);
         this.world = world;
+    }
+
+    public boolean isOutOfLives() {
+        return outOfLives;
+    }
+
+    public void setOutOfLives(boolean outOfLives) {
+        this.outOfLives = outOfLives;
     }
 
     public WorldModel getWorld() {
