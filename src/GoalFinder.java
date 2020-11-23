@@ -16,8 +16,16 @@ public abstract class GoalFinder extends MovingEntity{
         this.world = world;
     }
 
+    public WorldModel getWorld() {
+        return world;
+    }
+
     public int getLives() {
         return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     public Point nextPosition(WorldModel world, Point destPos){
@@ -28,8 +36,11 @@ public abstract class GoalFinder extends MovingEntity{
         if (currentPath.size() == 0)
             return getPosition(); // the entity has reached its goal or is stuck
 
-        if (world.isOccupied(currentPath.get(0)))
+        if (world.isOccupied(currentPath.get(0))){
             currentPath = calculatePath(world, destPos);// recalculate path if previous path is blocked
+//            if (currentPath.size() == 0) // in case new path is also no good
+//                return getPosition();
+        }
 
         if (!neighbors(currentPath.get(0), getPosition()))
             currentPath = calculatePath(world, destPos); // recalculate path if nextPos is not next to current pos, ie entity was moved by something else
@@ -57,12 +68,5 @@ public abstract class GoalFinder extends MovingEntity{
                 p1.getX()-1 == p2.getX() && p1.getY()+1 == p2.getY();
     }
 
-    public void hit(){
-        if (lives == 1){
-
-        }
-        else lives -= 1;
-        Point start = new Point(15, 20);
-        world.moveEntity(this, start);
-    }
+    public abstract void hit();
 }

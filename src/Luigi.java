@@ -18,4 +18,12 @@ public class Luigi extends GoalFinder{
                     getActionPeriod());
         }
     }
+    public void hit(){
+        if (getLives() == 1){
+
+        }
+        else setLives(getLives() - 1);
+        Point start = new Point(14, 20);
+        getWorld().moveEntity(this, start);
+    }
 }

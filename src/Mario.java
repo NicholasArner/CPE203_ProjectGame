@@ -18,4 +18,13 @@ public class Mario extends GoalFinder{
                     getActionPeriod());
         }
     }
+
+    public void hit(){
+        if (getLives() == 1){
+
+        }
+        else setLives(getLives() - 1);
+        Point start = new Point(16, 20);
+        getWorld().moveEntity(this, start);
+    }
 }
