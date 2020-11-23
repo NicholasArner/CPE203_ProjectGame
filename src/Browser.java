@@ -13,6 +13,11 @@ public class Browser extends MovingEntity{
     }
 
     @Override
+    protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
+        return false;
+    }
+
+    @Override
     protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
 
     }

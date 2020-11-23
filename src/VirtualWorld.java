@@ -1,6 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -58,7 +58,7 @@ public final class VirtualWorld
 
    private static Entity brow; // playable character
    private static Entity deadMario;
-   private static boolean killedMario = false;
+   private static boolean goalFindersDead = false;
 
    public void settings()
    {
@@ -104,13 +104,14 @@ public final class VirtualWorld
          text("Press Spacebar to Begin", 325, 390);
          start= false;
       }
-      if (killedMario){
+      if (goalFindersDead){
+         clear();
          fill(100, 0, 0);
          rect(275, 350, 30, 30);
          textSize(20);
          fill(100, 0, 0);
          text("BROWSER DEFEATED... VICTORY!", 285, 355);
-         noLoop();
+         //noLoop();
       }
       if (checkSpace){
 
@@ -125,10 +126,17 @@ public final class VirtualWorld
       }
       Predicate<Entity> checkMario = e -> e instanceof GoalFinder;
       if (world != null){
-      deadMario = world.getEntities().stream().filter(checkMario).limit(1).collect(Collectors.toList()).get(0);
-      if (((GoalFinder)deadMario).isOutOfLives()){
-         killedMario = true;
-      }}
+      List<Entity> goalFinders = world.getEntities().stream().filter(checkMario).collect(Collectors.toList());
+
+      goalFindersDead = true;
+      for (Entity goalFinder: goalFinders){
+         GoalFinder goalFinder1 = (GoalFinder) goalFinder;
+         if (!goalFinder1.isOutOfLives()) {
+            goalFindersDead = false;
+            break;
+         }
+      }
+      }
 
       //update
    }
@@ -137,16 +145,16 @@ public final class VirtualWorld
    public void mousePressed() {
 
       if (checkSpace){
-      if (minionCount < 3){
+      if (minionCount < 6){
       Point minionNew = new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT);
       MovingEntity specialMinion = new PowerMinion("minion2", minionNew, imageStore.getImageList("minion2"),
-              0, 100, 0);
+              5000, 100, 0);
       world.addEntity(specialMinion);
       specialMinion.scheduleActions(scheduler, world, imageStore);
 
-      ActiveEntity quake4 = new Quake(new Point(minionNew.getX(), minionNew.getY()-1),
+      ActiveEntity quake4 = new Explosion(new Point(minionNew.getX(), minionNew.getY()-1),
               imageStore.getImageList("quake4"));
-      ActiveEntity quake5 = new Quake(new Point(minionNew.getX(), minionNew.getY()+1),
+      ActiveEntity quake5 = new Explosion(new Point(minionNew.getX(), minionNew.getY()+1),
               imageStore.getImageList("quake4"));
          world.setBackground(new Point(minionNew.getX(), minionNew.getY()-1),
                  new Background("eventSquare", imageStore.getImageList("eventSquare")));
@@ -273,9 +281,7 @@ public final class VirtualWorld
                if (ae.getActionPeriod() > 0){
                   ae.scheduleActions(scheduler, world, imageStore);
                }
-
             }
-
       }
    }
 

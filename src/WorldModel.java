@@ -63,7 +63,7 @@ final class WorldModel
    private static final int MARIO_LUIGI_ID = 1;
    private static final int MARIO_LUIGI_COL = 2;
    private static final int MARIO_LUIGI_ROW = 3;
-   private static final int MARIO_LUIGI_ACTION_PERIOD = 11000;
+   private static final int MARIO_LUIGI_ACTION_PERIOD = 8000;
    private static final int MARIO_LUIGI_ANIMATION_PERIOD = 100;
 
    private static final String MINION_KEY = "minion1";
@@ -176,9 +176,6 @@ final class WorldModel
 
             case BROWSER_KEY:
                return parseBrowser(properties, imageStore);
-
-            case OCTO_KEY:
-               return parseOcto(properties, imageStore);
          }
       }
 
@@ -267,25 +264,6 @@ final class WorldModel
       }
 
       return properties.length == MARIO_LUIGI_NUM_PROPERTIES;
-   }
-
-
-   private boolean parseOcto(String [] properties, ImageStore imageStore)
-   {
-      if (properties.length == OCTO_NUM_PROPERTIES)
-      {
-         Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
-                 Integer.parseInt(properties[OCTO_ROW]));
-         Entity entity = new Octo_Not_Full(properties[OCTO_ID],
-                 pt,
-                 imageStore.getImageList(OCTO_KEY),
-                 Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
-                 Integer.parseInt(properties[OCTO_ANIMATION_PERIOD])
-                 );
-         tryAddEntity(entity);
-      }
-
-      return properties.length == OCTO_NUM_PROPERTIES;
    }
 
    private boolean parseObstacle(String [] properties, ImageStore imageStore)

@@ -12,29 +12,6 @@ public abstract class Minion extends MovingEntity{
     public abstract Point nextPosition(WorldModel world, Point destPos);
 
     @Override
-    protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-//        Optional<Entity> nearestGoalFinder = world.findNearest(getPosition(), GoalFinder.class);
-//        Point target = new Point(17, 15);
-//        if (nearestGoalFinder.isPresent()){
-//            target = nearestGoalFinder.get().getPosition();
-//        }
-//        Entity endGoal = new EndGoal("endGoal", target, imageStore.getImageList("endGoal"));
-//        if (!moveTo(world, endGoal, scheduler)){
-//            scheduler.scheduleEvent(this,
-//                    createActivityAction(world, imageStore),
-//                    getActionPeriod());
-//        }
-//        else{
-//            // minion should already be there
-//            GoalFinder goalFinder;
-//            if (nearestGoalFinder.isPresent()){
-//                goalFinder = (GoalFinder) nearestGoalFinder.get();
-//                goalFinder.hit();
-//            }
-//            world.moveEntity(this, target);
-//        }
-    }
-    @Override
     protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
         if (this.getPosition().adjacent(target.getPosition())) return true;
         else

@@ -47,8 +47,6 @@ public abstract class GoalFinder extends MovingEntity{
 
         if (world.isOccupied(currentPath.get(0))){
             currentPath = calculatePath(world, destPos);// recalculate path if previous path is blocked
-//            if (currentPath.size() == 0) // in case new path is also no good
-//                return getPosition();
         }
 
         if (!neighbors(currentPath.get(0), getPosition()))
@@ -58,6 +56,25 @@ public abstract class GoalFinder extends MovingEntity{
         currentPath.remove(0); // move onto the next point
 
         return ret_point;
+    }
+    @Override
+    protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
+        if (this.getPosition().adjacent(target.getPosition())) return true;
+        else
+        {
+            Point nextPos = nextPosition(world, target.getPosition());
+            if (nextPos == null){
+                return true;
+            }
+
+            if (!this.getPosition().equals(nextPos))
+            {
+//                Optional<Entity> occupant = world.getOccupant(nextPos);
+//                occupant.ifPresent(scheduler::unscheduleAllEvents);
+                world.moveEntity(this, nextPos);
+            }
+            return false;
+        }
     }
 
     private List<Point> calculatePath(WorldModel world, Point destPos){
