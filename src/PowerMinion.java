@@ -14,6 +14,24 @@ public class PowerMinion extends Minion{
     }
 
     @Override
+    protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
+        if (this.getPosition().adjacent(target.getPosition())) return true;
+        else
+        {
+            Point nextPos = nextPosition(world, target.getPosition());
+            if (nextPos == null){
+                return true;
+            }
+
+            if (!this.getPosition().equals(nextPos))
+            {
+                world.moveEntity(this, nextPos);
+            }
+            return false;
+        }
+    }
+
+    @Override
     public Point nextPosition(WorldModel world, Point destPos) {
         return strategy.computePath(getPosition(), destPos, world::withinBounds, Minion::neighbors, PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS).get(0);
     }

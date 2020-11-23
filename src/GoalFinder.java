@@ -13,6 +13,7 @@ public abstract class GoalFinder extends MovingEntity{
     private boolean outOfLives;
     private boolean frozen = false;
     private int frozenCount;
+    private boolean goalFound = false;
 
     protected GoalFinder(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, WorldModel world) {
         super(id, position, images, actionPeriod, animationPeriod);
@@ -36,6 +37,10 @@ public abstract class GoalFinder extends MovingEntity{
         frozenCount = 0;
     }
 
+    public boolean isGoalFound() {
+        return goalFound;
+    }
+
     public WorldModel getWorld() {
         return world;
     }
@@ -46,6 +51,27 @@ public abstract class GoalFinder extends MovingEntity{
 
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    @Override
+    protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
+        if (neighbors(getPosition(), target.getPosition())){
+            goalFound = true;
+            return true;
+        }
+        else
+        {
+            Point nextPos = nextPosition(world, target.getPosition());
+            if (nextPos == null){
+                return true;
+            }
+
+            if (!this.getPosition().equals(nextPos))
+            {
+                world.moveEntity(this, nextPos);
+            }
+            return false;
+        }
     }
 
     public Point nextPosition(WorldModel world, Point destPos){
