@@ -54,6 +54,7 @@ public final class VirtualWorld
    private long next_time;
    int minionCount = 0;
    boolean checkSpace = false;
+   boolean start= true;
 
    private static Entity brow; // playable character
 
@@ -65,6 +66,7 @@ public final class VirtualWorld
    /*
       Processing entry point for "sketch" setup.
    */
+
    public void setup()
    {
       if (key == ' '){
@@ -89,6 +91,17 @@ public final class VirtualWorld
 
    public void draw()
    {
+      if (start){
+         textSize(40);
+         fill(0, 102, 153);
+         text("Welcome to:", 325, 300);
+         fill(	40, 100, 10);
+         text("Browser Showdown!", 275, 350);
+         textSize(20);
+         fill(100, 0, 0);
+         text("Press Spacebar to Begin", 325, 390);
+         start= false;
+      }
       if (checkSpace){
 
       long time = System.currentTimeMillis();
