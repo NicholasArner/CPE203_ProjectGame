@@ -40,7 +40,7 @@ public abstract class GoalFinder extends MovingEntity{
     public Point nextPosition(WorldModel world, Point destPos){
         // recalculate here if next point is occupied, use world.isoccupied
        //List<Point> points = strategy.computePath(getPosition(), destPos)
-        if (currentPath == null) currentPath = calculatePath(world, destPos);
+        if (currentPath == null)  currentPath = calculatePath(world, destPos);
 
         if (currentPath.size() == 0)
             return getPosition(); // the entity has reached its goal or is stuck

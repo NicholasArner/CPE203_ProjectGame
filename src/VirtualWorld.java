@@ -57,6 +57,8 @@ public final class VirtualWorld
    boolean start= true;
 
    private static Entity brow; // playable character
+   private static Entity deadMario;
+   private static boolean killedMario = false;
 
    public void settings()
    {
@@ -102,6 +104,14 @@ public final class VirtualWorld
          text("Press Spacebar to Begin", 325, 390);
          start= false;
       }
+      if (killedMario){
+         fill(100, 0, 0);
+         rect(275, 350, 30, 30);
+         textSize(20);
+         fill(100, 0, 0);
+         text("BROWSER DEFEATED... VICTORY!", 285, 355);
+         noLoop();
+      }
       if (checkSpace){
 
       long time = System.currentTimeMillis();
@@ -113,12 +123,18 @@ public final class VirtualWorld
 
       view.drawViewport();
       }
+      Predicate<Entity> checkMario = e -> e instanceof GoalFinder;
+      if (world != null){
+      deadMario = world.getEntities().stream().filter(checkMario).limit(1).collect(Collectors.toList()).get(0);
+      if (((GoalFinder)deadMario).isOutOfLives()){
+         killedMario = true;
+      }}
+
       //update
    }
 
 
    public void mousePressed() {
-
 
       if (checkSpace){
       if (minionCount < 3){
@@ -238,11 +254,11 @@ public final class VirtualWorld
          Predicate<Entity> checkBrowser = e -> e instanceof Browser;
 
          brow = world.getEntities().stream().filter(checkBrowser).limit(1).collect(Collectors.toList()).get(0);
+
       }
       catch (FileNotFoundException e)
       {
-         System.err.println(e.getMessage());
-      }
+         System.err.println(e.getMessage()); }
    }
 
    private static void scheduleActions(WorldModel world,
