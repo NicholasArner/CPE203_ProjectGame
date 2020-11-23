@@ -2,6 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiPredicate;
 
 public class RegularMinion extends Minion{
     int bowsX;
@@ -14,7 +15,8 @@ public class RegularMinion extends Minion{
 
     @Override
     public Point nextPosition(WorldModel world, Point destPos) {
-        List<Point> path = strategy.computePath(getPosition(), destPos, world::withinBounds, Minion::neighbors, PathingStrategy.CARDINAL_NEIGHBORS);
+
+        List<Point> path = strategy.computePath(getPosition(), destPos, world::withinBounds, Point::equals, PathingStrategy.CARDINAL_NEIGHBORS);
         if (path.size() == 0){
             return null;
         }
@@ -23,16 +25,32 @@ public class RegularMinion extends Minion{
 
     @Override
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> nearestMario = world.findNearest(getPosition(), Mario.class);
+        Optional<Entity> nearestGoalFinder = world.findNearestGoalFinder(getPosition());
         Point target = new Point(bowsX, 21);
-        if (nearestMario.isPresent()){
-           target = nearestMario.get().getPosition();
+        if (nearestGoalFinder.isPresent()){
+           target = nearestGoalFinder.get().getPosition();
         }
         Entity endGoal = new EndGoal("endGoal", target, imageStore.getImageList("endGoal"));
         if (!moveTo(world, endGoal, scheduler)){
             scheduler.scheduleEvent(this,
                     createActivityAction(world, imageStore),
                     getActionPeriod());
+        }
+        else{
+            GoalFinder goalFinder;
+            if (nearestGoalFinder.isPresent()){
+                goalFinder = (GoalFinder) nearestGoalFinder.get();
+
+                if (getPosition().isAbove(goalFinder.getPosition()))
+                    goalFinder.hit();
+                //goalFinder.executeActivity(world, imageStore, scheduler);
+            }
+            //world.moveEntity(this, target);
+
+            world.removeEntity(this);
+            scheduler.unscheduleAllEvents(this);
+
+
         }
     }
 }

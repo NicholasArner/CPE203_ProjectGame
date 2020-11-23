@@ -20,10 +20,10 @@ public class PowerMinion extends Minion{
 
     @Override
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> nearestMario = world.findNearest(getPosition(), Mario.class);
+        Optional<Entity> nearestGoalFinder = world.findNearestGoalFinder(getPosition());
         Point target = new Point(0, 0);
-        if (nearestMario.isPresent()){
-            target = nearestMario.get().getPosition();
+        if (nearestGoalFinder.isPresent()){
+            target = nearestGoalFinder.get().getPosition();
         }
         Entity endGoal = new EndGoal("endGoal", target, imageStore.getImageList("endGoal"));
         if (!moveTo(world, endGoal, scheduler)){
@@ -37,13 +37,15 @@ public class PowerMinion extends Minion{
         else{
             // minion should already be there
             GoalFinder goalFinder;
-            if (nearestMario.isPresent()){
-                goalFinder = (GoalFinder) nearestMario.get();
-                goalFinder.hit();
-                goalFinder.executeActivity(world, imageStore, scheduler);
+            if (nearestGoalFinder.isPresent()){
+                goalFinder = (GoalFinder) nearestGoalFinder.get();
+                if (getPosition().adjacent(goalFinder.getPosition()))
+                    goalFinder.hit();
+                //goalFinder.executeActivity(world, imageStore, scheduler);
             }
-            world.moveEntity(this, target);
+            //world.moveEntity(this, target);
             world.removeEntity(this);
+            scheduler.unscheduleAllEvents(this);
         }
     }
 }

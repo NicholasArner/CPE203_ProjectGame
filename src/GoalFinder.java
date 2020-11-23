@@ -24,10 +24,19 @@ public abstract class GoalFinder extends MovingEntity{
         // recalculate here if next point is occupied, use world.isoccupied
        //List<Point> points = strategy.computePath(getPosition(), destPos)
         if (currentPath == null) currentPath = calculatePath(world, destPos);
+
+        if (currentPath.size() == 0)
+            return getPosition(); // the entity has reached its goal or is stuck
+
         if (world.isOccupied(currentPath.get(0)))
             currentPath = calculatePath(world, destPos);// recalculate path if previous path is blocked
+
+        if (!neighbors(currentPath.get(0), getPosition()))
+            currentPath = calculatePath(world, destPos); // recalculate path if nextPos is not next to current pos, ie entity was moved by something else
+
         Point ret_point = currentPath.get(0); // otherwise continue on current path
         currentPath.remove(0); // move onto the next point
+
         return ret_point;
     }
 
@@ -41,13 +50,16 @@ public abstract class GoalFinder extends MovingEntity{
         return p1.getX()+1 == p2.getX() && p1.getY() == p2.getY() ||
                 p1.getX()-1 == p2.getX() && p1.getY() == p2.getY() ||
                 p1.getX() == p2.getX() && p1.getY()+1 == p2.getY() ||
-                p1.getX() == p2.getX() && p1.getY()-1 == p2.getY();
+                p1.getX() == p2.getX() && p1.getY()-1 == p2.getY() ||
+                p1.getX()+1 == p2.getX() && p1.getY()+1 == p2.getY() ||
+                p1.getX()-1 == p2.getX() && p1.getY()-1 == p2.getY() ||
+                p1.getX()+1 == p2.getX() && p1.getY()-1 == p2.getY() ||
+                p1.getX()-1 == p2.getX() && p1.getY()+1 == p2.getY();
     }
 
     public void hit(){
         if (lives == 1){
-            world.removeEntity(this);
-            return;
+
         }
         else lives -= 1;
         Point start = new Point(15, 20);

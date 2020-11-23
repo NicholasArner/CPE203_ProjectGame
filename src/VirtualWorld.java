@@ -168,8 +168,7 @@ public final class VirtualWorld
 
          Point newPos = new Point(prevX + dx, prevY);
 
-         brow.setPosition(newPos);
-
+         world.moveEntity(brow, newPos);
 
          view.drawViewport();
 

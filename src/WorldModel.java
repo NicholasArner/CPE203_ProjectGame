@@ -63,7 +63,7 @@ final class WorldModel
    private static final int MARIO_LUIGI_ID = 1;
    private static final int MARIO_LUIGI_COL = 2;
    private static final int MARIO_LUIGI_ROW = 3;
-   private static final int MARIO_LUIGI_ACTION_PERIOD = 1100;
+   private static final int MARIO_LUIGI_ACTION_PERIOD = 11000;
    private static final int MARIO_LUIGI_ANIMATION_PERIOD = 100;
 
    private static final String MINION_KEY = "minion1";
@@ -71,7 +71,7 @@ final class WorldModel
    private static final int MINION_ID = 1;
    private static final int MINION_COL = 2;
    private static final int MINION_ROW = 3;
-   private static final int MINION_ACTION_PERIOD = 1100;
+   private static final int MINION_ACTION_PERIOD = 110;
    private static final int MINION_ANIMATION_PERIOD = 100;
 
    private static final String BROWSER_KEY = "browser";
@@ -79,7 +79,7 @@ final class WorldModel
    private static final int BROWSER_ID = 1;
    private static final int BROWSER_COL = 2;
    private static final int BROWSER_ROW = 3;
-   private static final int BROWSER_ACTION_PERIOD = 1100;
+   private static final int BROWSER_ACTION_PERIOD = 110;
    private static final int BROWSER_ANIMATION_PERIOD = 100;
 
    private final int numRows;
@@ -368,6 +368,19 @@ final class WorldModel
       return nearestEntity(ofType, pos);
    }
 
+   public Optional<Entity> findNearestGoalFinder(Point pos)
+   {
+      List<Entity> ofType = new LinkedList<>();
+      for (Entity entity : this.entities)
+      {
+         if (entity instanceof GoalFinder)
+         {
+            ofType.add(entity);
+         }
+      }
+      return nearestEntity(ofType, pos);
+   }
+
    /*
     Assumes that there is no entity currently occupying the
     intended destination cell.
@@ -391,6 +404,12 @@ final class WorldModel
          setOccupancyCell(pos, entity);
          entity.setPosition(pos);
       }
+   }
+
+   public void PhaseEntity(Entity entity, Point pos){
+      //removeEntityAt(pos);
+      setOccupancyCell(pos, entity);
+      entity.setPosition(pos);
    }
 
    public Optional<PImage> getBackgroundImage(Point pos)

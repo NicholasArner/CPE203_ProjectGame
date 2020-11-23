@@ -50,4 +50,8 @@ final class Point
 
       return deltaX * deltaX + deltaY * deltaY;
    }
+
+   public boolean isAbove(Point p){
+      return this.x == p.getX() && this.y == p.getY() - 1;
+   }
 }
