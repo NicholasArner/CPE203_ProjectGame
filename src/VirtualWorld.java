@@ -126,17 +126,25 @@ public final class VirtualWorld
       view.drawViewport();
       }
       Predicate<Entity> checkMario = e -> e instanceof GoalFinder;
-      if (world != null){
-      List<Entity> goalFinders = world.getEntities().stream().filter(checkMario).collect(Collectors.toList());
+      if (world != null) {
+         List<Entity> goalFinders = world.getEntities().stream().filter(checkMario).collect(Collectors.toList());
 
-      goalFindersDead = true;
-      for (Entity goalFinder: goalFinders){
-         GoalFinder goalFinder1 = (GoalFinder) goalFinder;
-         if (!goalFinder1.isOutOfLives()) {
-            goalFindersDead = false;
-            break;
+         goalFindersDead = true;
+         for (Entity goalFinder : goalFinders) {
+            GoalFinder goalFinder1 = (GoalFinder) goalFinder;
+            if (!goalFinder1.isOutOfLives()) {
+               goalFindersDead = false;
+               break;
+            }
          }
-      }
+         if (goalFindersDead == true) {
+            fill(6, 192, 249);
+            rect(295, 300, 400, 200);
+            textSize(50);
+            fill(249, 241, 6);
+            text("VICTORY!\n press 'q' to exit", 300, 355);
+         }
+
       }
 
       //update
@@ -223,6 +231,9 @@ public final class VirtualWorld
                  brow.getPosition().getY()), imageStore.getImageList("minion1"), 0,0, brow.getPosition().getX());
          world.addEntity(newMin);
          newMin.scheduleActions(scheduler, world, imageStore);
+      }
+      if (key == 'q'){
+         exit();
       }
       setup();
 
