@@ -142,17 +142,17 @@ public final class VirtualWorld
          goalFindersVictory = false;
          for (Entity goalFinder : goalFinders) {
             GoalFinder goalFinder1 = (GoalFinder) goalFinder;
-            if (!goalFinder1.isGoalFound()) {
+            if (goalFinder1.isGoalFound()) {
                goalFindersVictory = true;
                break;
             }
          }
          if (goalFindersVictory){
-            fill(6, 192, 249);
+            fill(100, 0, 0);
             rect(295, 300, 400, 200);
             textSize(50);
             fill(249, 241, 6);
-            text("DEFEAT!\n press 'q' to exit", 300, 355);
+            text("DEFEAT:(\n press 'q' to exit", 300, 355);
          }
          if (goalFindersDead) {
             fill(6, 192, 249);
