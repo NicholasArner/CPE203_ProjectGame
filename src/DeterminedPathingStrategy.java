@@ -13,10 +13,7 @@ public class DeterminedPathingStrategy implements PathingStrategy{
                                    BiPredicate<Point, Point> withinReach,
                                    Function<Point, Stream<Point>> potentialNeighbors)
     {
-        /* Does not check withinReach.  Since only a single step is taken
-         * on each call, the caller will need to check if the destination
-         * has been reached.
-         */
+
         end = new Point(start.getX(), 21);
         Point finalEnd = end;
         return potentialNeighbors.apply(start)
@@ -24,7 +21,6 @@ public class DeterminedPathingStrategy implements PathingStrategy{
                 .filter(pt ->
                         !pt.equals(start)
                                 && !start.equals(finalEnd)
-                                //&& Math.abs(end.getX() - pt.getX()) <= Math.abs(end.getX() - start.getX())
                                 && Math.abs(finalEnd.getY() - pt.getY()) <= Math.abs(finalEnd.getY() - start.getY()))
                 .limit(1)
                 .collect(Collectors.toList());
