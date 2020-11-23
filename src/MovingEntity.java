@@ -10,7 +10,22 @@ public abstract class MovingEntity extends AnimatedEntity{
     }
 
     protected abstract Point nextPosition(WorldModel world, Point destPos);
-    protected abstract boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler);
+    protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
+        if (this.getPosition().adjacent(target.getPosition())) return true;
+        else
+        {
+            Point nextPos = nextPosition(world, target.getPosition());
+            if (nextPos == null){
+                return true;
+            }
+
+            if (!this.getPosition().equals(nextPos))
+            {
+                world.moveEntity(this, nextPos);
+            }
+            return false;
+        }
+    }
 
     @Override
     protected void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){

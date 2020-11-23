@@ -76,23 +76,6 @@ public abstract class GoalFinder extends MovingEntity{
         frozenCount += 1;
         return getPosition();
     }
-    @Override
-    protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
-        if (this.getPosition().adjacent(target.getPosition())) return true;
-        else
-        {
-            Point nextPos = nextPosition(world, target.getPosition());
-            if (nextPos == null){
-                return true;
-            }
-
-            if (!this.getPosition().equals(nextPos))
-            {
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
-    }
 
     private List<Point> calculatePath(WorldModel world, Point destPos){
 

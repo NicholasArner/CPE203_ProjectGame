@@ -11,26 +11,6 @@ public abstract class Minion extends MovingEntity{
 
     public abstract Point nextPosition(WorldModel world, Point destPos);
 
-    @Override
-    protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
-        if (this.getPosition().adjacent(target.getPosition())) return true;
-        else
-        {
-            Point nextPos = nextPosition(world, target.getPosition());
-            if (nextPos == null){
-                return true;
-            }
-
-            if (!this.getPosition().equals(nextPos))
-            {
-//                Optional<Entity> occupant = world.getOccupant(nextPos);
-//                occupant.ifPresent(scheduler::unscheduleAllEvents);
-                world.phaseEntity(this, nextPos);
-            }
-            return false;
-        }
-    }
-
     public static boolean neighbors(Point p1, Point p2)
     {
         return p1.getX()+1 == p2.getX() && p1.getY() == p2.getY() ||

@@ -27,11 +27,15 @@ public class PowerMinion extends Minion{
         }
         Entity endGoal = new EndGoal("endGoal", target, imageStore.getImageList("endGoal"));
         if (!moveTo(world, endGoal, scheduler)){
-            if (tryCount <= 20){
+            if (tryCount <= 7){
             scheduler.scheduleEvent(this,
                     createActivityAction(world, imageStore),
                     getActionPeriod());
             tryCount++;
+            }
+            else{
+                world.removeEntity(this);
+                scheduler.unscheduleAllEvents(this);
             }
         }
         else{
