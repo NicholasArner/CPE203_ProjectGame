@@ -24,6 +24,24 @@ public class RegularMinion extends Minion{
     }
 
     @Override
+    protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
+        if (this.getPosition().adjacent(target.getPosition())) return true;
+        else
+        {
+            Point nextPos = nextPosition(world, target.getPosition());
+            if (nextPos == null){
+                return true;
+            }
+
+            if (!this.getPosition().equals(nextPos))
+            {
+                world.phaseEntity(this, nextPos);
+            }
+            return false;
+        }
+    }
+
+    @Override
     protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> nearestGoalFinder = world.findNearestGoalFinder(getPosition());
         Point target = new Point(bowsX, 21);

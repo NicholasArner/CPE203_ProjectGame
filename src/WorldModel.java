@@ -373,6 +373,26 @@ final class WorldModel
       }
    }
 
+   public void addExplosion(Explosion explosion){
+      Point pos = explosion.getPosition();
+      if (this.withinBounds( explosion.getPosition()))
+      {
+         Optional<Entity> currentEntity = getOccupant(pos);
+         if (currentEntity.isPresent()){
+            if (currentEntity.get() instanceof GoalFinder){
+               GoalFinder goalFinder = (GoalFinder) currentEntity.get();
+               goalFinder.hit();
+            }
+            if (currentEntity.get() instanceof Obstacle){
+               //setOccupancyCell(pos, null);
+               removeEntityAt(pos);
+            }
+         }
+         setOccupancyCell(pos, explosion);
+         this.entities.add(explosion);
+      }
+   }
+
    public void moveEntity(Entity entity, Point pos)
    {
       Point oldPos = entity.getPosition();

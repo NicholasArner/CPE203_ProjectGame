@@ -148,34 +148,37 @@ public final class VirtualWorld
       if (checkSpace){
          Point mouseClickPoint = new Point(mouseX/TILE_HEIGHT,mouseY/TILE_HEIGHT);
          if (minionCount < 3){
-         MovingEntity specialMinion = new PowerMinion("minion2", mouseClickPoint, imageStore.getImageList("minion2"),
-                 5000, 100, 0);
-         world.addEntity(specialMinion);
-         specialMinion.scheduleActions(scheduler, world, imageStore);
 
-         ActiveEntity quake4 = new Explosion(new Point(mouseClickPoint.getX(), mouseClickPoint.getY()-1),
-                 imageStore.getImageList("explosion4"));
-         ActiveEntity quake5 = new Explosion(new Point(mouseClickPoint.getX(), mouseClickPoint.getY()+1),
-                 imageStore.getImageList("explosion4"));
+            Optional<Entity> nearestGoalFinder = world.findNearestGoalFinder(mouseClickPoint);
+
+            if (nearestGoalFinder.isPresent()){
+               GoalFinder goalFinder = (GoalFinder) nearestGoalFinder.get();
+               goalFinder.freeze();
+            }
+
+            MovingEntity specialMinion = new PowerMinion("minion2", mouseClickPoint, imageStore.getImageList("minion2"),
+                    5000, 100, 0);
+            world.addEntity(specialMinion);
+            specialMinion.scheduleActions(scheduler, world, imageStore);
+
+            Point explosion1Point = new Point(mouseClickPoint.getX(), mouseClickPoint.getY()-1);
+            Point explosion2Point = new Point(mouseClickPoint.getX(), mouseClickPoint.getY()+1);
+
+            Explosion explosion1 = new Explosion(explosion1Point, imageStore.getImageList("explosion4"));
+            Explosion explosion2 = new Explosion(explosion2Point, imageStore.getImageList("explosion4"));
             world.setBackground(new Point(mouseClickPoint.getX(), mouseClickPoint.getY()-1),
                     new Background("eventSquare", imageStore.getImageList("eventSquare")));
             world.setBackground(new Point(mouseClickPoint.getX(), mouseClickPoint.getY()+1),
                     new Background("eventSquare", imageStore.getImageList("eventSquare")));
 
-            world.addEntity(quake4);
-         quake4.scheduleActions(scheduler, world, imageStore);
-         world.addEntity(quake5);
-         quake5.scheduleActions(scheduler, world, imageStore);
+            world.addExplosion(explosion1);
+            explosion1.scheduleActions(scheduler, world, imageStore);
+            world.addExplosion(explosion2);
+            explosion2.scheduleActions(scheduler, world, imageStore);
 
-         Optional<Entity> nearestGoalFinder = world.findNearestGoalFinder(mouseClickPoint);
-
-         if (nearestGoalFinder.isPresent()){
-            GoalFinder goalFinder = (GoalFinder) nearestGoalFinder.get();
-            goalFinder.freeze();
+            minionCount++;
+            redraw();
          }
-
-         minionCount++;
-         redraw();}
          else{
             checkSpace = true;
             redraw();
