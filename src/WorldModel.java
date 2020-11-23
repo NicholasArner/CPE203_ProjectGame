@@ -87,6 +87,7 @@ final class WorldModel
    private final Background[][] background;
    private final Entity[][] occupancy;
    private final Set<Entity> entities;
+   private final HashMap<Point, Entity> phased_Entities = new HashMap<>();
 
    public WorldModel(int numRows, int numCols, Background defaultBackground)
    {
@@ -406,12 +407,27 @@ final class WorldModel
       }
    }
 
-   public void PhaseEntity(Entity entity, Point pos){
+   public void phaseEntity(Entity entity, Point pos){
+
+
+
+      Optional<Entity> currentEntity = getOccupant(pos);
+      if (currentEntity.isPresent()){
+         if (currentEntity.get() instanceof Obstacle) phased_Entities.put(pos, currentEntity.get());
+      }
+
       Point oldPos = entity.getPosition();
       setOccupancyCell(oldPos, null);
       //removeEntityAt(pos);
       setOccupancyCell(pos, entity);
       entity.setPosition(pos);
+
+      if (phased_Entities.get(oldPos) != null){
+         phased_Entities.get(oldPos).setPosition(oldPos);
+         setOccupancyCell(oldPos, phased_Entities.get(oldPos));
+
+      }
+
    }
 
    public Optional<PImage> getBackgroundImage(Point pos)

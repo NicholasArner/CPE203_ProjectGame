@@ -48,7 +48,7 @@ public abstract class Minion extends MovingEntity{
             {
 //                Optional<Entity> occupant = world.getOccupant(nextPos);
 //                occupant.ifPresent(scheduler::unscheduleAllEvents);
-                world.PhaseEntity(this, nextPos);
+                world.phaseEntity(this, nextPos);
             }
             return false;
         }
