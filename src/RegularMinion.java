@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 
-public class RegularMinion extends Minion{
+public class RegularMinion extends MovingEntity{
     int bowsX;
     PathingStrategy strategy = new DeterminedPathingStrategy();
     protected RegularMinion(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, int bowsX) {
@@ -63,7 +63,6 @@ public class RegularMinion extends Minion{
                     goalFinder.hit();
                 if (goalFinder.isOutOfLives()) scheduler.unscheduleAllEvents(goalFinder);
             }
-            //world.moveEntity(this, target);
 
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);

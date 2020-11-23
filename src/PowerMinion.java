@@ -4,7 +4,7 @@ import java.awt.geom.PathIterator;
 import java.util.List;
 import java.util.Optional;
 
-public class PowerMinion extends Minion{
+public class PowerMinion extends MovingEntity{
     int tryCount;
 
     PathingStrategy strategy = new SingleStepPathingStrategy();
@@ -33,7 +33,7 @@ public class PowerMinion extends Minion{
 
     @Override
     public Point nextPosition(WorldModel world, Point destPos) {
-        return strategy.computePath(getPosition(), destPos, world::withinBounds, Minion::neighbors, PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS).get(0);
+        return strategy.computePath(getPosition(), destPos, world::withinBounds, MovingEntity::neighbors, PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS).get(0);
     }
 
     @Override

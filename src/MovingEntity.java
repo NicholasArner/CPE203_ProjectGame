@@ -1,7 +1,6 @@
 import processing.core.PImage;
 
 import java.util.List;
-import java.util.Optional;
 
 public abstract class MovingEntity extends AnimatedEntity{
 
@@ -19,5 +18,13 @@ public abstract class MovingEntity extends AnimatedEntity{
                 super.getActionPeriod());
         scheduler.scheduleEvent(this, createAnimationAction( 0),
                 this.getAnimationPeriod());
+    }
+
+    protected static boolean neighbors(Point p1, Point p2)
+    {
+        return p1.getX()+1 == p2.getX() && p1.getY() == p2.getY() ||
+                p1.getX()-1 == p2.getX() && p1.getY() == p2.getY() ||
+                p1.getX() == p2.getX() && p1.getY()+1 == p2.getY() ||
+                p1.getX() == p2.getX() && p1.getY()-1 == p2.getY();
     }
 }
