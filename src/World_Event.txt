@@ -1,0 +1,50 @@
+
+1. how to trigger the event:
+    World Changing Event: left mouse click - spawn special (Powered up) explosive (animation) minion
+    Other triggers:
+    left/right arrow keys - move your character! (browser)
+    "m" key - shoots regular minion (determined pathing) down from bowser
+    space - to start game
+    "q" key - quit game
+
+2. what should happen when the event is triggered / what the affected entities should do:
+   World Changing Event: Whichever enemy (Mario or Luigi) is closest to mouseclick, will freeze.
+                        Special (powered up) minion that spawns with animated explosion
+                         will find and kill frozen enemy using single step pathing.
+
+      Other event:
+                 regular minion spawn (kills mario and luigi if there is a collision with them)
+
+3. what the new entity is and how it should behave:
+    new entity: special minion - animates on spawn and seeks out mario and luigi to kill them using single step pathing
+                you are only allowed to spwan 3 special minions per game , when they spawn they change 2 background
+                squares to red.
+
+    * Note:
+    1. To make the game difficulty balanced, we made it so special minions (when spawned),
+            destroy the obstacles they spawn which then allows the mario and luigi to path through these
+            spaces. (Getting gradually more difficult to stop them)
+    2. There is a limit on how many minions can be spawned on the screen at once! The limit is 7.
+
+
+4. the names of each partner and what each partner was responsible for
+    Nicholas - implemented A*/single step and collision logic , made entity movable w/ arrow keys , moving entities
+                around the world, reorganized classes, flags for game ending condition
+    Nicole - World changing event entity and animation , determined pathing strategy, start and end screen,
+              changed world scene/background/viewport, created arrow key "m" minion shoot action
+
+
+
+     Extra Credit : Yes!
+     1. Movable entity w/ arrow keys (browser character)
+     2. 3 different entitites:
+            mario and luigi (enemies) - A* pathing
+            Special minion - single step pathing
+            Regular minion - determined pathing
+            Browser main character - arrow keys control
+     3. Video? Yes!
+
+
+
+
+
