@@ -58,7 +58,6 @@ public final class VirtualWorld
    boolean start= true;
 
    private static Entity brow; // playable character
-   private static Entity deadMario;
    private static boolean goalFindersDead = false;
    private static boolean goalFindersVictory = false;
 
@@ -247,10 +246,17 @@ public final class VirtualWorld
 
       }
       if (key == 'm'){
-         RegularMinion newMin = new RegularMinion("minion1", new Point(brow.getPosition().getX(),
-                 brow.getPosition().getY()), imageStore.getImageList("minion1"), 0,0, brow.getPosition().getX());
-         world.addEntity(newMin);
-         newMin.scheduleActions(scheduler, world, imageStore);
+
+         Predicate<Entity> checkMinion = e -> e instanceof RegularMinion;
+
+         int num_Minions = (int) world.getEntities().stream().filter(checkMinion).count();
+
+         if (num_Minions < 8){
+            RegularMinion newMin = new RegularMinion("minion1", new Point(brow.getPosition().getX(),
+                    brow.getPosition().getY()), imageStore.getImageList("minion1"), 0,0, brow.getPosition().getX());
+            world.addEntity(newMin);
+            newMin.scheduleActions(scheduler, world, imageStore);
+         }
       }
       if (key == 'q'){
          exit();

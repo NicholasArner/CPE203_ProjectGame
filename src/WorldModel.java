@@ -71,7 +71,7 @@ final class WorldModel
    private static final int MINION_ID = 1;
    private static final int MINION_COL = 2;
    private static final int MINION_ROW = 3;
-   private static final int MINION_ACTION_PERIOD = 110;
+   private static final int MINION_ACTION_PERIOD = 1;
    private static final int MINION_ANIMATION_PERIOD = 100;
 
    private static final String BROWSER_KEY = "browser";
@@ -79,7 +79,7 @@ final class WorldModel
    private static final int BROWSER_ID = 1;
    private static final int BROWSER_COL = 2;
    private static final int BROWSER_ROW = 3;
-   private static final int BROWSER_ACTION_PERIOD = 110;
+   private static final int BROWSER_ACTION_PERIOD = 1;
    private static final int BROWSER_ANIMATION_PERIOD = 100;
 
    private final int numRows;
