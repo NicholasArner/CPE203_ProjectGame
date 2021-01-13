@@ -1,3 +1,3 @@
 Virtual World Project
-CSC 203, Fall '19
+CSC 203, Fall '20
 Prof. Humer
